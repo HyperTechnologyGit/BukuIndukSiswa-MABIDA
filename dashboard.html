@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard — Buku Induk Siswa</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body{display:flex;align-items:center;justify-content:center}.dash{width:min(900px,92%);background:#fff;border-radius:25px;padding:40px;box-shadow:0 20px 50px #174b3325;text-align:center}.dash h1{color:#146b4c}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:25px}.card{padding:24px;background:#f4faf5;border:1px solid #dbe8df;border-radius:17px}.back{margin-top:25px;padding:13px 24px;border:0;border-radius:12px;background:#146b4c;color:#fff;font-weight:700;cursor:pointer}@media(max-width:700px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="dash">
+<img src="logo-mabida.png" style="width:260px;max-width:80%" alt="MABIDA">
+<h1 id="title">Dashboard</h1>
+<p id="desc">Selamat datang di Sistem Buku Induk Siswa.</p>
+<div class="cards">
+<div class="card"><b>Data Siswa</b><br><small>Kelola data induk siswa</small></div>
+<div class="card"><b>Akademik</b><br><small>Nilai dan administrasi akademik</small></div>
+<div class="card"><b>Laporan</b><br><small>Cetak dan rekapitulasi</small></div>
+</div>
+<button class="back" onclick="location.href='index.html'">← Kembali ke Login</button>
+</div>
+<script>
+const params=new URLSearchParams(location.search);
+const labels={admin:"Administrator",kepsek:"Kepala Sekolah",wakakur:"Waka Kurikulum",wakasis:"Waka Kesiswaan",wakahumasy:"Waka Humas",wakasarpras:"Waka Sarpras",kopsis:"Kopsis",labkom:"Labkom",perpustakaan:"Perpustakaan"};
+const role=params.get("role")||"admin";
+document.getElementById("title").textContent="Dashboard "+(labels[role]||"Pengguna");
+</script>
+</body>
+</html>
