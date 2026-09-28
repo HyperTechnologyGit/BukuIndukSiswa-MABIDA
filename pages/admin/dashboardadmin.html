@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MABIDA Professional — <span id="pageTitle">Admin</span></title>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=4">
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="brand-mini">
+    <img src="../../assets/img/logo-mabida.png" alt="MABIDA">
+    <div><b>BUKU INDUK</b><small>ADMINISTRASI TU</small></div>
+  </div>
+
+  <div class="profile">
+    <b id="userName">Administrator</b>
+    <small id="userRole">Admin / Tata Usaha</small>
+  </div>
+
+  <nav>
+    <div class="section">UTAMA</div>
+    <button class="nav" data-page="dashboard">Dashboard</button>
+
+    <div class="section">BUKU INDUK SISWA</div>
+    <button class="nav" data-page="identitas">Identitas Siswa</button>
+    <button class="nav" data-page="kelas10">Hasil Belajar Kelas X</button>
+    <button class="nav" data-page="kelas11">Hasil Belajar Kelas XI</button>
+    <button class="nav" data-page="kelas12">Hasil Belajar Kelas XII</button>
+    <button class="nav" data-page="lampiran">Ijazah & Sertifikat TKA</button>
+
+    <div class="section">ADMINISTRASI</div>
+    <button class="nav" data-page="password">Kelola Sandi</button>
+  </nav>
+
+  <button class="logout" onclick="location.href='../../index.html'">Keluar</button>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div>
+      <small>MABIDA PROFESSIONAL / ADMIN TU</small>
+      <h1 id="pageTitle">Dashboard Admin</h1>
+    </div>
+    <div class="topright">
+      <span>Jam <b id="topClock">00:00:00</b></span>
+      <span class="live">● LIVE</span>
+      <span id="topDate"></span>
+    </div>
+  </header>
+
+  <section class="content">
+    
+<div class="page-head">
+  <div><span class="eyebrow">ADMINISTRASI TATA USAHA</span>
+  <h2>Dashboard Admin</h2><p class="sub">Pusat pengelolaan Buku Induk Siswa MABIDA Professional.</p></div>
+</div>
+<div class="grid">
+  <div class="stat"><small>BUKU INDUK</small><strong>Aktif</strong><span>Data siswa</span></div>
+  <div class="stat"><small>HASIL BELAJAR</small><strong>3</strong><span>Kelas X · XI · XII</span></div>
+  <div class="stat"><small>DOKUMEN</small><strong>2</strong><span>Ijazah & TKA</span></div>
+  <div class="stat"><small>AKSES</small><strong>Admin</strong><span>Tata Usaha</span></div>
+</div>
+<div class="two">
+  <div class="card"><h3>Akses Cepat</h3><div class="quick">
+    <a href="identitassiswa.html">Identitas Siswa</a>
+    <a href="hasilbelajarkelas10.html">Hasil Belajar Kelas X</a>
+    <a href="hasilbelajarkelas11.html">Hasil Belajar Kelas XI</a>
+    <a href="hasilbelajarkelas12.html">Hasil Belajar Kelas XII</a>
+    <a href="lampiranijazah.html">Ijazah & Sertifikat TKA</a>
+    <a href="kelolasandi.html">Kelola Sandi</a>
+  </div></div>
+  <div class="card"><h3>Status Sistem</h3>
+    <div class="notice">Sistem aktif. Jam real-time tersedia di pojok kanan atas.</div>
+    <table class="table"><tr><td>Role</td><td><b>ADMIN / TU</b></td></tr>
+    <tr><td>Format cetak</td><td>Folio / F4</td></tr></table>
+  </div>
+</div>
+
+  </section>
+</main>
+<script src="../../assets/js/admin-common.js?v=4"></script>
+<script>initAdminShell("Dashboard Admin");</script>
+
+</body>
+</html>
