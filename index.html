@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MABIDA Professional — Buku Induk Siswa</title>
+<link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
+<div class="bg-shape shape-1"></div><div class="bg-shape shape-2"></div>
+
+<main class="page">
+  <header class="brand">
+    <img src="assets/img/logo-mabida.png" alt="MABIDA Professional" class="logo">
+    <h1>BUKU INDUK SISWA</h1>
+    <p>Sistem Informasi Data Siswa Terpadu</p>
+  </header>
+
+  <section class="login-card">
+    <div class="role-bar">
+      <button class="role active" data-role="admin">ADMIN</button>
+      <button class="role" data-role="kepsek">KEPSEK</button>
+      <button class="role" data-role="wakil">WAKIL KEPALA</button>
+      <button class="role" data-role="kopsis">KOPSIS</button>
+      <button class="role" data-role="labkom">LABKOM</button>
+      <button class="role" data-role="perpustakaan">PERPUSTAKAAN</button>
+    </div>
+
+    <div class="form-area">
+      <div class="title-row">
+        <div>
+          <span class="eyebrow">AKSES SISTEM</span>
+          <h2 id="loginTitle">Login Admin</h2>
+        </div>
+        <span class="secure">● Sistem Terproteksi</span>
+      </div>
+
+      <label for="account">Pilih akun <b>*</b></label>
+      <select id="account"></select>
+
+      <label for="password">Masukkan kata sandi <b>*</b></label>
+      <div class="password-wrap">
+        <input id="password" type="password" placeholder="Ketik sandi akun terpilih">
+        <button type="button" id="togglePassword">◉</button>
+      </div>
+
+      <div class="helper">
+        <span id="accountInfo">Admin Utama & Sub Admin</span>
+        <button type="button" id="forgot">Lupa sandi?</button>
+      </div>
+
+      <button class="login-btn" id="loginBtn">Masuk <span>→</span></button>
+      <div class="message" id="message"></div>
+    </div>
+  </section>
+
+  <footer><strong>MABIDA PROFESSIONAL</strong><span>•</span>Bersinergi untuk Pendidikan yang Lebih Baik</footer>
+</main>
+<script src="assets/js/login.js"></script>
+</body>
+</html>
