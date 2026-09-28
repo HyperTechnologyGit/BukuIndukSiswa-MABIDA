@@ -70,7 +70,7 @@ function showMessage(t,ok){
  message.className="message "+(ok?"ok":"err");
 }
 function openAdminDashboard(user){
-  const target="./pages/admin/dashboard.html";
+  const target="./pages/admin/dashboardadmin.html";
   const query="?role="+encodeURIComponent(user[2])+"&name="+encodeURIComponent(user[0]);
   window.location.assign(target+query);
 }

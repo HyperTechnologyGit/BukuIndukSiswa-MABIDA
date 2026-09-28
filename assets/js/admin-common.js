@@ -26,13 +26,13 @@ function initAdminShell(title) {
     btn.addEventListener("click", () => {
       const target = btn.dataset.page;
       const map = {
-        dashboard:"dashboard.html",
-        identitas:"identitas.html",
-        kelas10:"hasil-belajar-x.html",
-        kelas11:"hasil-belajar-xi.html",
-        kelas12:"hasil-belajar-xii.html",
-        lampiran:"lampiran.html",
-        password:"kelola-sandi.html"
+        dashboard:"dashboardadmin.html",
+        identitas:"identitassiswa.html",
+        kelas10:"hasilbelajarkelas10.html",
+        kelas11:"hasilbelajarkelas11.html",
+        kelas12:"hasilbelajarkelas12.html",
+        lampiran:"lampiranijazah.html",
+        password:"kelolasandi.html"
       };
       if (map[target]) {
         location.href = map[target] + location.search;
