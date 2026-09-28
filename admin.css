@@ -8,3 +8,5 @@
 .sidebar .nav span{width:22px;min-width:22px;text-align:center}
 .sidebar .nav{pointer-events:auto}
 .sidebar .nav[data-page]{cursor:pointer}
+
+.sidebar .nav span{display:none!important}.sidebar .nav{justify-content:flex-start}

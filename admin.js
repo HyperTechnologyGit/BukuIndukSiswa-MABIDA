@@ -1,30 +1,102 @@
-const C=document.getElementById('content'),T=document.getElementById('title');const nav=document.querySelectorAll('nav button');
 const params=new URLSearchParams(location.search);
 const loggedRole=params.get("role")||"admin";
 const loggedName=params.get("name")||"Administrator";
-document.querySelector(".profile b").textContent=loggedName;
-document.querySelector(".profile small").textContent=
-  loggedRole==="wakakur"||loggedRole==="wakasis"||loggedRole==="wakahumasy"||loggedRole==="wakasarpras"
-  ? "Wakil Kepala" : (loggedRole==="admin" ? "Admin / Tata Usaha" : loggedRole.toUpperCase());
+
+const sidebar=document.getElementById("sidebar");
+const content=document.getElementById("content");
+const title=document.getElementById("title");
 
 const pages={
- dashboard:['Dashboard Admin',dashboard],identitas:['Hal 1 — Lembar Identitas Siswa',identitas],kelas10:['Hal 2 — Laporan Hasil Belajar Kelas X',()=>hasil('X')],kelas11:['Hal 3 — Laporan Hasil Belajar Kelas XI',()=>hasil('XI')],kelas12:['Hal 4 — Laporan Hasil Belajar Kelas XII',()=>hasil('XII')],lampiran:['Hal 5 — Ijazah & Sertifikat TKA',lampiran],password:['Hal 6 — Kelola Sandi Setiap Dashboard',password]};
-function go(k){T.textContent=pages[k][0];C.innerHTML=pages[k][1]();nav.forEach(x=>x.classList.toggle('active',x.dataset.p===k));document.getElementById('side').classList.remove('open');}
-nav.forEach(x=>x.onclick=()=>go(x.dataset.p));document.getElementById('hamb').onclick=()=>document.getElementById('side').classList.toggle('open');
-function dashboard(){return `<div class=head><div><span class=eyebrow>ADMINISTRASI TATA USAHA</span><h2>Dashboard Admin</h2><p class=sub>Pusat pengelolaan Buku Induk Siswa.</p></div></div><div class=stats><div class=stat><small>TOTAL SISWA</small><strong>—</strong></div><div class=stat><small>KELAS X</small><strong>—</strong></div><div class=stat><small>KELAS XI</small><strong>—</strong></div><div class=stat><small>KELAS XII</small><strong>—</strong></div></div><div class=two><div class=card><h3>Akses Cepat</h3><div class=quick><button onclick="go('identitas')">Identitas Siswa</button><button onclick="go('kelas10')">Hasil Belajar X</button><button onclick="go('kelas11')">Hasil Belajar XI</button><button onclick="go('kelas12')">Hasil Belajar XII</button><button onclick="go('lampiran')">Ijazah & TKA</button><button onclick="go('password')">Kelola Sandi</button></div></div><div class=card><h3>Status Sistem</h3><div class=notice>● Sistem aktif. Jam real time mengikuti perangkat.</div><b>Role:</b> Admin / TU<br><br><b>Format:</b> Folio / F4</div></div>`}
-function identitas(){return `<div class=head><div><span class=eyebrow>HALAMAN 1</span><h2>Lembar Identitas Siswa + Foto</h2><p class=sub>Nama, nama panggilan, identitas kependudukan dan data pokok.</p></div><div class=actions><button class=btn>💾 Simpan</button><button class="btn green" onclick="printDoc('Lembar Identitas Siswa','id')">🖨 Print F4</button></div></div><div class=card><div class=student><div><div class=photo>FOTO SISWA<br>3 × 4</div><button class=btn style="margin-top:8px">＋ Upload Foto</button></div><div class=formgrid>${fields([['NIS','Nomor Induk Siswa'],['NISN','NISN'],['Nama Lengkap','Nama lengkap siswa'],['Nama Panggilan','Nama panggilan'],['Tempat Lahir','Kabupaten/Kota'],['Tanggal Lahir',''],['Jenis Kelamin','Pilih'],['NIK','Nomor Induk Kependudukan'],['Agama','Pilih agama'],['No. KK','Nomor Kartu Keluarga'],['Anak Ke','Contoh: 2'],['Status Dalam Keluarga','Anak kandung / lainnya']])}<div class=field style="grid-column:1/-1"><label>Alamat Lengkap</label><textarea></textarea></div></div></div></div>`}
-function fields(a){return a.map(x=>`<div class=field><label>${x[0]}</label><input placeholder="${x[1]}"></div>`).join('')}
-function hasil(k){return `<div class=head><div><span class=eyebrow>HALAMAN ${k==='X'?2:k==='XI'?3:4}</span><h2>Laporan Hasil Belajar Kelas ${k}</h2><p class=sub>Semester 1 — 2 · Cetak Folio / F4.</p></div><div class=actions><button class="btn gold" onclick="printDoc('Laporan Hasil Belajar Kelas ${k}','nilai')">🖨 Print F4</button><button class=btn>⇧ Import</button><button class=btn>⇩ Export</button></div></div><div class=card><div class=formgrid><div class=field><label>Pilih Siswa</label><select><option>— Pilih siswa —</option></select></div><div class=field><label>Tahun Pelajaran</label><input placeholder="2026 / 2027"></div></div><div class=semester><h3>Semester 1</h3></div>${nilai()}<div class=semester><h3>Semester 2</h3></div>${nilai()}</div>`}
-function nilai(){return `<table><thead><tr><th>No</th><th>Mata Pelajaran</th><th>Nilai</th><th>Predikat</th><th>Catatan</th></tr></thead><tbody>${['Pendidikan Agama','Pendidikan Pancasila','Bahasa Indonesia','Matematika','Bahasa Inggris','Sejarah','Informatika','PJOK'].map((x,i)=>`<tr><td>${i+1}</td><td>${x}</td><td><input type=number min=0 max=100></td><td><input></td><td><input></td></tr>`).join('')}</tbody></table>`}
-function lampiran(){return `<div class=head><div><span class=eyebrow>HALAMAN 5</span><h2>Lampiran Ijazah & Sertifikat TKA</h2><p class=sub>Dokumen kelulusan dan sertifikat peserta didik.</p></div><button class="btn green" onclick="printDoc('Lampiran Ijazah dan Sertifikat TKA','lampiran')">🖨 Print F4</button></div><div class=card><div class=formgrid>${fields([['Pilih Siswa','— Pilih siswa —'],['Jenis Dokumen','Ijazah / Sertifikat TKA'],['Nomor Dokumen','Nomor ijazah / sertifikat'],['Tanggal Dokumen','']])}</div><br><div class=drop>📎<br><b>Upload dokumen</b><br>PDF / JPG / PNG</div></div>`}
-function password(){return `<div class=head><div><span class=eyebrow>HALAMAN 6</span><h2>Kelola Sandi Setiap Dashboard</h2><p class=sub>Admin dapat mengelola kredensial tiap dashboard.</p></div><button class="btn green" onclick="alert('Perubahan ditandai untuk disimpan. Backend keamanan dapat dihubungkan berikutnya.')">💾 Simpan</button></div><div class=card><div class=notice>Untuk produksi, password wajib disimpan dengan hashing di backend, bukan di JavaScript.</div>${['ADMIN / TU','KEPALA SEKOLAH','WAKA KURIKULUM','WAKA KESISWAAN','WAKA HUMAS','WAKA SARPRAS','KOPSIS','LABKOM','PERPUSTAKAAN'].map(x=>`<div class=passrow><b>${x}</b><input placeholder="Nama akun"><input type=password placeholder="Sandi baru"><button class=btn>Ubah</button></div>`).join('')}</div>`}
-function printDoc(t,type){document.getElementById('ptitle').textContent=t;let p=document.getElementById('paper');if(type==='id')p.innerHTML='<h3>LEMBAR IDENTITAS PESERTA DIDIK</h3><table><tr><td>Nama Lengkap</td><td></td></tr><tr><td>Nama Panggilan</td><td></td></tr><tr><td>NIS / NISN</td><td></td></tr><tr><td>Tempat, Tanggal Lahir</td><td></td></tr><tr><td>Jenis Kelamin</td><td></td></tr><tr><td>Alamat</td><td></td></tr></table>';else if(type==='nilai')p.innerHTML='<h3>'+t.toUpperCase()+'</h3><p>Nama Siswa: ................................ &nbsp; Tahun Pelajaran: ................</p><table><tr><th>No</th><th>Mata Pelajaran</th><th>Semester 1</th><th>Semester 2</th></tr>'+['Pendidikan Agama','Pendidikan Pancasila','Bahasa Indonesia','Matematika','Bahasa Inggris','Sejarah','Informatika','PJOK'].map((x,i)=>`<tr><td>${i+1}</td><td>${x}</td><td></td><td></td></tr>`).join('')+'</table>';else p.innerHTML='<h3>'+t.toUpperCase()+'</h3><table><tr><th>No</th><th>Jenis Dokumen</th><th>Nomor</th><th>Tanggal</th><th>Keterangan</th></tr><tr><td>1</td><td>Ijazah</td><td></td><td></td><td></td></tr><tr><td>2</td><td>Sertifikat TKA</td><td></td><td></td><td></td></tr></table>';document.getElementById('modal').classList.add('show')}
-function closePrint(){document.getElementById('modal').classList.remove('show')}
-function tick(){
-  const d=new Date();
-  const clock=document.getElementById("topClock");
-  const date=document.getElementById("topDate");
-  if(clock) clock.textContent=d.toLocaleTimeString("id-ID",{hour12:false});
-  if(date) date.textContent=d.toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"});
+dashboard:{title:"Dashboard Admin",html:dashboardPage()},
+identitas:{title:"Identitas Siswa",html:identitasPage()},
+kelas10:{title:"Laporan Hasil Belajar Kelas X",html:hasilPage("X")},
+kelas11:{title:"Laporan Hasil Belajar Kelas XI",html:hasilPage("XI")},
+kelas12:{title:"Laporan Hasil Belajar Kelas XII",html:hasilPage("XII")},
+lampiran:{title:"Ijazah & Sertifikat TKA",html:lampiranPage()},
+password:{title:"Kelola Sandi",html:passwordPage()}
+};
+
+function render(page){
+  const p=pages[page]||pages.dashboard;
+  title.textContent=p.title;
+  content.innerHTML=p.html;
+  document.querySelectorAll(".nav[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+  sidebar.classList.remove("open");
+  window.scrollTo(0,0);
 }
-setInterval(tick,1000);tick();go('dashboard');
+
+document.querySelectorAll(".nav[data-page]").forEach(btn=>{
+  btn.addEventListener("click",()=>render(btn.dataset.page));
+});
+document.getElementById("hamb").addEventListener("click",()=>sidebar.classList.toggle("open"));
+
+function dashboardPage(){return `
+<div class="page-head">
+  <div><span class="eyebrow">ADMINISTRASI TATA USAHA</span><h2>Dashboard Admin</h2>
+  <p class="sub">Pusat pengelolaan Buku Induk Siswa MABIDA Professional.</p></div>
+</div>
+<div class="grid">
+  <div class="stat"><small>BUKU INDUK</small><strong>Aktif</strong><span>Modul data siswa siap dikelola</span></div>
+  <div class="stat"><small>HASIL BELAJAR</small><strong>3</strong><span>Kelas X · XI · XII</span></div>
+  <div class="stat"><small>DOKUMEN</small><strong>2</strong><span>Ijazah & Sertifikat TKA</span></div>
+  <div class="stat"><small>AKSES</small><strong>Admin</strong><span>Hak akses Tata Usaha</span></div>
+</div>
+<div class="two">
+  <div class="card"><h3>Menu Utama</h3><div class="quick">
+    <button onclick="render('identitas')">Identitas Siswa</button>
+    <button onclick="render('kelas10')">Hasil Belajar Kelas X</button>
+    <button onclick="render('kelas11')">Hasil Belajar Kelas XI</button>
+    <button onclick="render('kelas12')">Hasil Belajar Kelas XII</button>
+    <button onclick="render('lampiran')">Ijazah & Sertifikat TKA</button>
+    <button onclick="render('password')">Kelola Sandi</button>
+  </div></div>
+  <div class="card"><h3>Status Sistem</h3>
+    <div class="notice">● Sistem aktif. Jam real-time tampil di pojok kanan atas.</div>
+    <table class="table"><tr><td>Role</td><td><b>${loggedRole==="admin"?"ADMIN / TU":loggedRole.toUpperCase()}</b></td></tr>
+    <tr><td>Modul buku induk</td><td>6 modul</td></tr><tr><td>Format cetak</td><td>Folio / F4</td></tr></table>
+  </div>
+</div>`}
+
+function identitasPage(){return `
+<div class="page-head"><div><span class="eyebrow">DATA SISWA</span><h2>Identitas Siswa</h2><p class="sub">Data pokok peserta didik dan foto.</p></div>
+<div class="actions"><button class="btn" onclick="saveDemo()">Simpan</button><button class="btn green" onclick="printDoc('Lembar Identitas Siswa','identity')">Print F4</button></div></div>
+<div class="card"><div class="student-layout"><div><div class="photo-box">FOTO SISWA<br><small>3 × 4</small></div><button class="btn" style="margin-top:8px;width:135px">Upload Foto</button></div>
+<div class="formgrid">
+${field("NIS","Nomor Induk Siswa")}${field("NISN","NISN")}${field("Nama Lengkap","Nama lengkap siswa")}${field("Nama Panggilan","Nama panggilan")}
+${field("Tempat Lahir","Kabupaten/Kota")}${field("Tanggal Lahir","", "date")}${selectField("Jenis Kelamin",["Laki-laki","Perempuan"])}${field("NIK","Nomor Induk Kependudukan")}
+${selectField("Agama",["Islam","Kristen","Katolik","Hindu","Buddha","Konghucu"])}${field("No. KK","Nomor Kartu Keluarga")}${field("Anak Ke","Contoh: 2")}${field("Status Dalam Keluarga","Anak kandung / lainnya")}
+<div class="field" style="grid-column:1/-1"><label>Alamat Lengkap</label><textarea placeholder="Alamat tempat tinggal siswa"></textarea></div>
+</div></div></div>`}
+
+function field(label,ph,type="text"){return `<div class="field"><label>${label}</label><input type="${type}" placeholder="${ph}"></div>`}
+function selectField(label,opts){return `<div class="field"><label>${label}</label><select><option>Pilih ${label.toLowerCase()}</option>${opts.map(x=>`<option>${x}</option>`).join("")}</select></div>`}
+
+function hasilPage(kelas){return `
+<div class="page-head"><div><span class="eyebrow">HASIL BELAJAR</span><h2>Laporan Hasil Belajar Kelas ${kelas}</h2><p class="sub">Semester 1 dan Semester 2 · Format Folio / F4.</p></div>
+<div class="actions"><button class="btn gold" onclick="printDoc('Laporan Hasil Belajar Kelas ${kelas}','nilai')">Print F4</button><button class="btn">Export</button><button class="btn">Import</button></div></div>
+<div class="card"><div class="formgrid"><div class="field"><label>Pilih Siswa</label><select><option>Pilih siswa</option></select></div><div class="field"><label>Tahun Pelajaran</label><input placeholder="2026 / 2027"></div></div>
+<div class="semester"><h3>Semester 1</h3></div>${nilaiTable()}<div class="semester"><h3>Semester 2</h3></div>${nilaiTable()}</div>`}
+
+function nilaiTable(){return `<div class="table-wrap"><table class="table subject-table"><thead><tr><th>No</th><th>Mata Pelajaran</th><th>Nilai</th><th>Predikat</th><th>Catatan</th></tr></thead><tbody>${["Pendidikan Agama","Pendidikan Pancasila","Bahasa Indonesia","Matematika","Bahasa Inggris","Sejarah","Informatika","PJOK"].map((x,i)=>`<tr><td>${i+1}</td><td>${x}</td><td><input type="number" min="0" max="100" placeholder="—"></td><td><input placeholder="—"></td><td><input placeholder="—"></td></tr>`).join("")}</tbody></table></div>`}
+
+function lampiranPage(){return `
+<div class="page-head"><div><span class="eyebrow">DOKUMEN</span><h2>Ijazah & Sertifikat TKA</h2><p class="sub">Simpan dokumen kelulusan dan sertifikat siswa.</p></div><button class="btn green" onclick="printDoc('Lampiran Ijazah dan Sertifikat TKA','lampiran')">Print F4</button></div>
+<div class="card"><div class="formgrid">${field("Pilih Siswa","Pilih siswa")}${selectField("Jenis Dokumen",["Ijazah","Sertifikat TKA","Sertifikat lainnya"])}${field("Nomor Dokumen","Nomor ijazah / sertifikat")}${field("Tanggal Dokumen","", "date")}</div>
+<div class="dropzone">Upload dokumen PDF / JPG / PNG</div></div>`}
+
+function passwordPage(){return `
+<div class="page-head"><div><span class="eyebrow">KEAMANAN</span><h2>Kelola Sandi</h2><p class="sub">Pengaturan akses akun dashboard.</p></div><button class="btn green" onclick="saveDemo()">Simpan Perubahan</button></div>
+<div class="card"><div class="notice">Untuk produksi, password wajib diproses di backend dengan hashing dan session/RBAC.</div>
+<div class="password-list">${["ADMIN / TU","KEPALA SEKOLAH","WAKA KURIKULUM","WAKA KESISWAAN","WAKA HUMAS","WAKA SARPRAS","KOPSIS","LABKOM","PERPUSTAKAAN"].map((x,i)=>`<div class="password-row"><b>${x}</b><input value="Akun ${i+1}"><input type="password" placeholder="Sandi baru"><button class="btn">Ubah</button></div>`).join("")}</div></div>`}
+
+function saveDemo(){alert("Data demo siap dihubungkan ke database pada tahap backend.");}
+function printDoc(t,type){alert("Pratinjau cetak: "+t+" — format Folio/F4.");}
+
+function tick(){
+ const d=new Date();
+ const c=document.getElementById("topClock"), dt=document.getElementById("topDate");
+ if(c)c.textContent=d.toLocaleTimeString("id-ID",{hour12:false});
+ if(dt)dt.textContent=d.toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"});
+}
+setInterval(tick,1000);tick();
+render("dashboard");
