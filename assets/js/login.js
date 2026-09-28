@@ -62,11 +62,16 @@ document.getElementById("loginBtn").onclick=()=>{
    // Admin dan Sub Admin masuk ke dashboard Admin/TU yang sudah dibuat.
    // Role lain sementara diarahkan ke dashboard yang sama sebagai fondasi,
    // lalu modul masing-masing dapat dikembangkan tanpa memecah login.
-   window.location.href="dashboard.html?role="+encodeURIComponent(u[2])+"&name="+encodeURIComponent(u[0]);
+   openAdminDashboard(u);
  },400);
 };
 function showMessage(t,ok){
  message.textContent=t;
  message.className="message "+(ok?"ok":"err");
+}
+function openAdminDashboard(user){
+  const target="./pages/admin/dashboard.html";
+  const query="?role="+encodeURIComponent(user[2])+"&name="+encodeURIComponent(user[0]);
+  window.location.assign(target+query);
 }
 loadRole("admin");
