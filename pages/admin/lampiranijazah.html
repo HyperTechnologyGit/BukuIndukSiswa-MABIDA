@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MABIDA Professional — <span id="pageTitle">Admin</span></title>
+<link rel="stylesheet" href="../../assets/css/admin.css">
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="brand-mini">
+    <img src="../../assets/img/logo-mabida.png" alt="MABIDA">
+    <div><b>BUKU INDUK</b><small>ADMINISTRASI TU</small></div>
+  </div>
+
+  <div class="profile">
+    <b id="userName">Administrator</b>
+    <small id="userRole">Admin / Tata Usaha</small>
+  </div>
+
+  <nav>
+    <div class="section">UTAMA</div>
+    <button class="nav" data-page="dashboard">Dashboard</button>
+
+    <div class="section">BUKU INDUK SISWA</div>
+    <button class="nav" data-page="identitas">Identitas Siswa</button>
+    <button class="nav" data-page="kelas10">Hasil Belajar Kelas X</button>
+    <button class="nav" data-page="kelas11">Hasil Belajar Kelas XI</button>
+    <button class="nav" data-page="kelas12">Hasil Belajar Kelas XII</button>
+    <button class="nav" data-page="lampiran">Ijazah & Sertifikat TKA</button>
+
+    <div class="section">ADMINISTRASI</div>
+    <button class="nav" data-page="password">Kelola Sandi</button>
+  </nav>
+
+  <button class="logout" onclick="location.href='../../index.html'">Keluar</button>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div>
+      <small>MABIDA PROFESSIONAL / ADMIN TU</small>
+      <h1 id="pageTitle">Dashboard Admin</h1>
+    </div>
+    <div class="topright">
+      <span>Jam <b id="topClock">00:00:00</b></span>
+      <span class="live">● LIVE</span>
+      <span id="topDate"></span>
+    </div>
+  </header>
+
+  <section class="content">
+    
+<div class="page-head"><div><span class="eyebrow">DOKUMEN</span><h2>Ijazah & Sertifikat TKA</h2><p class="sub">Lampiran dokumen kelulusan siswa.</p></div><button class="btn green" onclick="window.print()">Print F4</button></div>
+<div class="card"><div class="formgrid">
+<div class="field"><label>Siswa</label><select><option>Pilih siswa</option></select></div>
+<div class="field"><label>Jenis Dokumen</label><select><option>Ijazah</option><option>Sertifikat TKA</option></select></div>
+<div class="field"><label>Nomor Dokumen</label><input></div><div class="field"><label>Tanggal</label><input type="date"></div>
+</div><div class="dropzone">Upload dokumen PDF / JPG / PNG</div></div>
+
+  </section>
+</main>
+<script src="../../assets/js/admin-common.js"></script>
+<script>initAdminShell("Ijazah & Sertifikat TKA");</script>
+
+</body>
+</html>
