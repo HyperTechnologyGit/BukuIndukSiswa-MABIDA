@@ -1,4 +1,12 @@
 const C=document.getElementById('content'),T=document.getElementById('title');const nav=document.querySelectorAll('nav button');
+const params=new URLSearchParams(location.search);
+const loggedRole=params.get("role")||"admin";
+const loggedName=params.get("name")||"Administrator";
+document.querySelector(".profile b").textContent=loggedName;
+document.querySelector(".profile small").textContent=
+  loggedRole==="wakakur"||loggedRole==="wakasis"||loggedRole==="wakahumasy"||loggedRole==="wakasarpras"
+  ? "Wakil Kepala" : (loggedRole==="admin" ? "Admin / Tata Usaha" : loggedRole.toUpperCase());
+
 const pages={
  dashboard:['Dashboard Admin',dashboard],identitas:['Hal 1 — Lembar Identitas Siswa',identitas],kelas10:['Hal 2 — Laporan Hasil Belajar Kelas X',()=>hasil('X')],kelas11:['Hal 3 — Laporan Hasil Belajar Kelas XI',()=>hasil('XI')],kelas12:['Hal 4 — Laporan Hasil Belajar Kelas XII',()=>hasil('XII')],lampiran:['Hal 5 — Ijazah & Sertifikat TKA',lampiran],password:['Hal 6 — Kelola Sandi Setiap Dashboard',password]};
 function go(k){T.textContent=pages[k][0];C.innerHTML=pages[k][1]();nav.forEach(x=>x.classList.toggle('active',x.dataset.p===k));document.getElementById('side').classList.remove('open');}

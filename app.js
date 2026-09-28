@@ -1,124 +1,72 @@
-const accounts = {
-  admin: {
-    label: "Admin",
-    info: "Admin utama & sub-admin sekolah",
-    users: [
-      ["Administrator Utama", "admin123"],
-      ["Sub Admin Akademik", "subadmin123"],
-      ["Sub Admin Kesiswaan", "kesiswaan123"]
-    ]
-  },
-  kepsek: {
-    label: "Kepala Sekolah",
-    info: "Akses monitoring & persetujuan kepala sekolah",
-    users: [["Kepala Sekolah", "kepsek123"]]
-  },
-  wakakur: {
-    label: "Waka Kurikulum",
-    info: "Akses kurikulum, nilai & administrasi akademik",
-    users: [["Waka Kurikulum", "wakakur123"]]
-  },
-  wakasis: {
-    label: "Waka Kesiswaan",
-    info: "Akses data siswa & administrasi kesiswaan",
-    users: [["Waka Kesiswaan", "wakasis123"]]
-  },
-  wakahumasy: {
-    label: "Waka Humas",
-    info: "Akses hubungan sekolah & dokumentasi",
-    users: [["Waka Humas", "humasy123"]]
-  },
-  wakasarpras: {
-    label: "Waka Sarpras",
-    info: "Akses sarana, prasarana & inventaris",
-    users: [["Waka Sarpras", "sarpras123"]]
-  },
-  kopsis: {
-    label: "Kopsis",
-    info: "Akses administrasi koperasi sekolah",
-    users: [["Petugas Kopsis", "kopsis123"]]
-  },
-  labkom: {
-    label: "Labkom",
-    info: "Akses administrasi laboratorium komputer",
-    users: [["Operator Labkom", "labkom123"]]
-  },
-  perpustakaan: {
-    label: "Perpustakaan",
-    info: "Akses koleksi & administrasi perpustakaan",
-    users: [["Petugas Perpustakaan", "pustaka123"]]
-  }
+const accounts={
+admin:{label:"Admin",info:"Admin Utama & Sub Admin",users:[
+["Admin Utama","admin123","admin"],
+["Sub Admin","subadmin123","admin"]
+]},
+kepsek:{label:"Kepsek",info:"Akun Kepala Sekolah",users:[
+["Kepala Sekolah","kepsek123","kepsek"]
+]},
+wakil:{label:"Wakil Kepala",info:"Waka Kurikulum, Kesiswaan, Humasy & Sarana Prasarana",users:[
+["Waka Kurikulum","wakakur123","wakakur"],
+["Waka Kesiswaan","wakasis123","wakasis"],
+["Waka Humasy","humasy123","wakahumasy"],
+["Waka Sarana Prasarana","sarpras123","wakasarpras"]
+]},
+kopsis:{label:"Kopsis",info:"Akun Koperasi Sekolah",users:[
+["Petugas Kopsis","kopsis123","kopsis"]
+]},
+labkom:{label:"Labkom",info:"Akun Laboratorium Komputer",users:[
+["Operator Labkom","labkom123","labkom"]
+]},
+perpustakaan:{label:"Perpustakaan",info:"Akun Perpustakaan",users:[
+["Petugas Perpustakaan","pustaka123","perpustakaan"]
+]}
 };
 
-let currentRole = "admin";
-
-const roleButtons = document.querySelectorAll(".role");
-const account = document.getElementById("account");
-const password = document.getElementById("password");
-const loginBtn = document.getElementById("loginBtn");
-const message = document.getElementById("message");
-const loginTitle = document.getElementById("loginTitle");
-const accountInfo = document.getElementById("accountInfo");
+let currentRole="admin";
+const roleButtons=document.querySelectorAll(".role");
+const account=document.getElementById("account");
+const password=document.getElementById("password");
+const message=document.getElementById("message");
+const title=document.getElementById("loginTitle");
+const info=document.getElementById("accountInfo");
 
 function loadRole(role){
-  currentRole = role;
-  const data = accounts[role];
-  account.innerHTML = "";
-
-  data.users.forEach((user, i) => {
-    const option = document.createElement("option");
-    option.value = i;
-    option.textContent = user[0];
-    account.appendChild(option);
-  });
-
-  loginTitle.textContent = `Login ${data.label}`;
-  accountInfo.textContent = data.info;
-  password.value = "";
-  message.textContent = "";
-  message.className = "message";
+ currentRole=role;
+ const data=accounts[role];
+ account.innerHTML="";
+ data.users.forEach((u,i)=>{
+   const o=document.createElement("option");
+   o.value=i;o.textContent=u[0];account.appendChild(o);
+ });
+ title.textContent="Login "+data.label;
+ info.textContent=data.info;
+ password.value="";showMessage("",true);
 }
-
-roleButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    roleButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    loadRole(btn.dataset.role);
-  });
+roleButtons.forEach(btn=>btn.onclick=()=>{
+ roleButtons.forEach(b=>b.classList.remove("active"));
+ btn.classList.add("active");loadRole(btn.dataset.role);
 });
-
-document.getElementById("togglePassword").addEventListener("click", () => {
-  password.type = password.type === "password" ? "text" : "password";
-});
-
-loginBtn.addEventListener("click", () => {
-  const selected = accounts[currentRole].users[Number(account.value)];
-  const entered = password.value;
-
-  if(!entered){
-    showMessage("Kata sandi wajib diisi.", false);
-    password.focus();
-    return;
-  }
-
-  if(entered === selected[1]){
-    showMessage(`Login berhasil sebagai ${selected[0]}.`, true);
-    // Untuk versi produksi, ganti bagian ini dengan redirect ke dashboard/backend.
-    setTimeout(() => {
-      window.location.href = "dashboard.html?role=" + encodeURIComponent(currentRole);
-    }, 650);
-  }else{
-    showMessage("Kata sandi salah. Silakan coba lagi.", false);
-  }
-});
-
-document.getElementById("forgot").addEventListener("click", () => {
-  showMessage("Silakan hubungi Administrator Utama untuk reset kata sandi.", false);
-});
-
-function showMessage(text, success){
-  message.textContent = text;
-  message.className = "message " + (success ? "ok" : "err");
+document.getElementById("togglePassword").onclick=()=>{
+ password.type=password.type==="password"?"text":"password";
+};
+document.getElementById("forgot").onclick=()=>{
+ showMessage("Hubungi Admin Utama untuk reset sandi.",false);
+};
+document.getElementById("loginBtn").onclick=()=>{
+ const u=accounts[currentRole].users[Number(account.value)];
+ if(!password.value){showMessage("Kata sandi wajib diisi.",false);return}
+ if(password.value!==u[1]){showMessage("Kata sandi salah.",false);return}
+ showMessage("Login berhasil.",true);
+ setTimeout(()=>{
+   // Admin dan Sub Admin masuk ke dashboard Admin/TU yang sudah dibuat.
+   // Role lain sementara diarahkan ke dashboard yang sama sebagai fondasi,
+   // lalu modul masing-masing dapat dikembangkan tanpa memecah login.
+   window.location.href="dashboard.html?role="+encodeURIComponent(u[2])+"&name="+encodeURIComponent(u[0]);
+ },400);
+};
+function showMessage(t,ok){
+ message.textContent=t;
+ message.className="message "+(ok?"ok":"err");
 }
-
 loadRole("admin");
