@@ -3,3 +3,8 @@
 .realtime{font-size:10px;color:#53665f;font-weight:700;white-space:nowrap}
 .realtime b{color:var(--navy);font-size:11px;letter-spacing:.5px;margin-left:3px}
 .topright{gap:13px}
+
+/* FINAL NAV FIX */
+.sidebar .nav span{width:22px;min-width:22px;text-align:center}
+.sidebar .nav{pointer-events:auto}
+.sidebar .nav[data-page]{cursor:pointer}
