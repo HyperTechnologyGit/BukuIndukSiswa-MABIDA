@@ -51,17 +51,119 @@
 
   <section class="content">
     
-<div class="page-head"><div><span class="eyebrow">DATA SISWA</span><h2>Identitas Siswa</h2><p class="sub">Data pokok peserta didik dan foto.</p></div>
-<div class="actions"><button class="btn">Simpan</button><button class="btn green" onclick="window.print()">Print F4</button></div></div>
-<div class="card"><div class="student-layout"><div><div class="photo-box">FOTO SISWA<br><small>3 × 4</small></div></div>
-<div class="formgrid">
-<div class="field"><label>NIS</label><input></div><div class="field"><label>NISN</label><input></div>
-<div class="field"><label>Nama Lengkap</label><input></div><div class="field"><label>Nama Panggilan</label><input></div>
-<div class="field"><label>Tempat Lahir</label><input></div><div class="field"><label>Tanggal Lahir</label><input type="date"></div>
-<div class="field"><label>Jenis Kelamin</label><select><option>Pilih</option><option>Laki-laki</option><option>Perempuan</option></select></div>
-<div class="field"><label>NIK</label><input></div>
-<div class="field" style="grid-column:1/-1"><label>Alamat</label><textarea></textarea></div>
-</div></div></div>
+    <div class="page-head">
+      <div>
+        <span class="eyebrow">DATA SISWA</span>
+        <h2>Identitas Siswa</h2>
+        <p class="sub">Data pokok peserta didik, foto, orang tua, dan wali.</p>
+      </div>
+      <div class="actions">
+        <button class="btn">Simpan</button>
+        <button class="btn green" onclick="window.print()">Print F4</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <!-- I DATA MURID -->
+      <div class="student-layout">
+        <div>
+          <div class="photo-box">FOTO SISWA<br><small>3 × 4</small></div>
+        </div>
+        <div class="formgrid">
+          <div class="field"><label>NIS</label><input type="text"></div>
+          <div class="field"><label>NISN</label><input type="text"></div>
+          <div class="field"><label>Nama Lengkap</label><input type="text"></div>
+          <div class="field"><label>Nama Panggilan</label><input type="text"></div>
+          <div class="field"><label>Tempat Lahir</label><input type="text"></div>
+          <div class="field"><label>Tanggal Lahir</label><input type="date"></div>
+          <div class="field">
+            <label>Jenis Kelamin</label>
+            <select>
+              <option value="">Pilih</option>
+              <option value="Laki-laki">Laki-laki</option>
+              <option value="Perempuan">Perempuan</option>
+            </select>
+          </div>
+          <div class="field"><label>NIK</label><input type="text"></div>
+          <div class="field"><label>No HP</label><input type="text"></div>
+          <div class="field" style="grid-column:1/-1"><label>Alamat</label><textarea></textarea></div>
+        </div>
+      </div>
+
+      <!-- II DATA ORANG TUA -->
+      <div class="semester">II. DATA ORANG TUA</div>
+      
+      <!-- Data Ayah -->
+      <h3 style="font-size:10px; color:var(--navy); margin:10px 0 6px;">Data Ayah</h3>
+      <div class="formgrid">
+        <div class="field"><label>Nama Ayah</label><input type="text"></div>
+        <div class="field"><label>Umur Ayah (Tahun)</label><input type="number"></div>
+        <div class="field">
+          <label>Pekerjaan Ayah</label>
+          <select>
+            <option value="">Pilih Pekerjaan</option>
+            <option value="PNS">PNS</option>
+            <option value="TNI/Polri">TNI/Polri</option>
+            <option value="Wiraswasta">Wiraswasta</option>
+            <option value="Petani/Pedagang/Peternak">Petani/Pedagang/Peternak</option>
+            <option value="Karyawan Swasta">Karyawan Swasta</option>
+            <option value="Guru/Dosen">Guru/Dosen</option>
+            <option value="Tidak Bekerja">Tidak Bekerja</option>
+          </select>
+        </div>
+        <div class="field"><label>Penghasilan Kotor / Tahun (Rp)</label><input type="number"></div>
+        <div class="field"><label>No Telpon Bapak</label><input type="text"></div>
+        <div class="field" style="grid-column:1/-1"><label>Alamat Bapak</label><textarea></textarea></div>
+      </div>
+
+      <!-- Data Ibu -->
+      <h3 style="font-size:10px; color:var(--navy); margin:14px 0 6px;">Data Ibu</h3>
+      <div class="formgrid">
+        <div class="field"><label>Nama Ibu</label><input type="text"></div>
+        <div class="field"><label>Umur Ibu (Tahun)</label><input type="number"></div>
+        <div class="field">
+          <label>Pekerjaan Ibu</label>
+          <select>
+            <option value="">Pilih Pekerjaan</option>
+            <option value="PNS">PNS</option>
+            <option value="TNI/Polri">TNI/Polri</option>
+            <option value="Wiraswasta">Wiraswasta</option>
+            <option value="Petani/Pedagang/Peternak">Petani/Pedagang/Peternak</option>
+            <option value="Karyawan Swasta">Karyawan Swasta</option>
+            <option value="Guru/Dosen">Guru/Dosen</option>
+            <option value="Ibu Rumah Tangga">Ibu Rumah Tangga</option>
+            <option value="Tidak Bekerja">Tidak Bekerja</option>
+          </select>
+        </div>
+        <div class="field"><label>Penghasilan Kotor / Tahun (Rp)</label><input type="number"></div>
+        <div class="field"><label>No Telpon Ibu</label><input type="text"></div>
+        <div class="field" style="grid-column:1/-1"><label>Alamat Ibu</label><textarea></textarea></div>
+      </div>
+
+      <!-- III DATA WALI MURID (OPSIONAL) -->
+      <div class="semester">III. DATA WALI MURID (OPSIONAL)</div>
+      <div class="formgrid">
+        <div class="field"><label>Nama Wali</label><input type="text"></div>
+        <div class="field"><label>Umur Wali (Tahun)</label><input type="number"></div>
+        <div class="field">
+          <label>Pekerjaan Wali</label>
+          <select>
+            <option value="">Pilih Pekerjaan</option>
+            <option value="PNS">PNS</option>
+            <option value="TNI/Polri">TNI/Polri</option>
+            <option value="Wiraswasta">Wiraswasta</option>
+            <option value="Petani/Pedagang/Peternak">Petani/Pedagang/Peternak</option>
+            <option value="Karyawan Swasta">Karyawan Swasta</option>
+            <option value="Guru/Dosen">Guru/Dosen</option>
+            <option value="Tidak Bekerja">Tidak Bekerja</option>
+          </select>
+        </div>
+        <div class="field"><label>Penghasilan Kotor / Tahun (Rp)</label><input type="number"></div>
+        <div class="field"><label>No Telpon Wali</label><input type="text"></div>
+        <div class="field" style="grid-column:1/-1"><label>Alamat Wali</label><textarea></textarea></div>
+      </div>
+
+    </div>
 
   </section>
 </main>
