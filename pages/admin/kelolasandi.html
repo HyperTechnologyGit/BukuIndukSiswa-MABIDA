@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MABIDA Professional — Kelola Sandi</title>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=8"></head>
+<body>
+<aside class="sidebar">
+<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"><div><b>BUKU INDUK</b><small>ADMINISTRASI TU</small></div></div>
+<div class="profile"><b id="userName">Administrator</b><small id="userRole">Admin / Tata Usaha</small></div>
+<nav>
+<div class="section">UTAMA</div><button class="nav" data-page="dashboard">Dashboard</button>
+<div class="section">BUKU INDUK SISWA</div>
+<button class="nav" data-page="identitas">Identitas Siswa</button>
+<button class="nav" data-page="kelas10">Hasil Belajar Kelas X</button>
+<button class="nav" data-page="kelas11">Hasil Belajar Kelas XI</button>
+<button class="nav" data-page="kelas12">Hasil Belajar Kelas XII</button>
+<button class="nav" data-page="lampiran">Ijazah & Sertifikat TKA</button>
+<div class="section">ADMINISTRASI</div><button class="nav" data-page="password">Kelola Sandi</button>
+</nav>
+<button class="logout" onclick="location.href='../../index.html'">Keluar</button>
+</aside>
+<main class="main"><header class="topbar"><div><small>MABIDA PROFESSIONAL / ADMIN TU</small><h1 id="pageTitle">Kelola Sandi</h1></div>
+<div class="topright"><span>Jam <b id="topClock">00:00:00</b></span><span class="live">● LIVE</span><span id="topDate"></span></div></header>
+<section class="content"><div class="page-head"><div><span class="eyebrow">KEAMANAN & AKSES</span><h2>Kelola Sandi Semua Akun</h2><p class="sub">Pilih kelompok akun. Khusus Wakil Kepala tersedia pilihan Waka.</p></div><button class="btn green" id="saveAccount">Simpan Perubahan</button></div>
+<div class="card"><h3>Pilih Akun</h3><div class="formgrid">
+<div class="field"><label>Kelompok Akun</label><select id="accountGroup"><option value="admin">Admin</option><option value="kepsek">Kepala Sekolah</option><option value="wakil">Wakil Kepala</option><option value="kopsis">Kopsis</option><option value="labkom">Labkom</option><option value="perpustakaan">Perpustakaan</option></select></div>
+<div class="field"><label>Pilih Akun</label><select id="accountPicker"></select></div>
+<div class="field"><label>Nama / Alias</label><input id="accountName"></div><div class="field"><label>Username</label><input id="accountUsername"></div>
+<div class="field"><label>Sandi Baru</label><input id="accountPassword" type="password"></div><div class="field"><label>Konfirmasi Sandi</label><input id="accountConfirm" type="password"></div>
+</div><div id="accountMessage" class="notice">Pilih kelompok dan akun.</div></div>
+<div class="card section-card"><h3>Daftar Akun</h3><div class="table-wrap"><table class="table"><thead><tr><th>Kelompok</th><th>Nama / Alias</th><th>Username</th><th>Status</th></tr></thead><tbody id="accountTable"></tbody></table></div></div></section></main>
+<script src="../../assets/js/admin-common.js?v=8"></script><script>initAdminShell("Kelola Sandi");
+const defaults={admin:[["Admin Utama","admin","admin123"],["Sub Admin","subadmin","subadmin123"]],kepsek:[["Kepala Sekolah","kepsek","kepsek123"]],wakil:[["Waka Kurikulum","wakakur","wakakur123"],["Waka Kesiswaan","wakasis","wakasis123"],["Waka Humasy","wakahumasy","humasy123"],["Waka Sarana Prasarana","wakasarpras","sarpras123"]],kopsis:[["Kopsis","kopsis","kopsis123"]],labkom:[["Labkom","labkom","labkom123"]],perpustakaan:[["Perpustakaan","perpustakaan","perpus123"]]};
+const labels={admin:"Admin",kepsek:"Kepala Sekolah",wakil:"Wakil Kepala",kopsis:"Kopsis",labkom:"Labkom",perpustakaan:"Perpustakaan"};
+function get(){try{const x=JSON.parse(localStorage.getItem("mabida_all_accounts_v2"));if(x)return x}catch(e){}const x={};Object.keys(defaults).forEach(k=>x[k]=defaults[k].map(a=>({name:a[0],username:a[1],password:a[2]})));return x}
+let all=get();localStorage.setItem("mabida_all_accounts_v2",JSON.stringify(all));
+const group=document.getElementById("accountGroup"),picker=document.getElementById("accountPicker");
+function load(){const a=all[group.value]||[];picker.innerHTML=a.map((x,i)=>`<option value="${i}">${escapeHtml(x.name)}</option>`).join("");fill()}
+function fill(){const a=all[group.value]?.[+picker.value||0];if(!a)return;accountName.value=a.name;accountUsername.value=a.username;accountPassword.value="";accountConfirm.value="";accountMessage.textContent=`Mengelola ${labels[group.value]} — ${a.name}.`}
+function table(){const rows=[];Object.keys(all).forEach(g=>all[g].forEach(a=>rows.push(`<tr><td>${labels[g]}</td><td><b>${escapeHtml(a.name)}</b></td><td>${escapeHtml(a.username)}</td><td><span class="badge success">Sandi tersimpan</span></td></tr>`)));renderStudentRows("accountTable",rows)}
+group.onchange=load;picker.onchange=fill;
+saveAccount.onclick=()=>{const a=all[group.value]?.[+picker.value||0];if(!a)return;if(!accountName.value.trim()||!accountUsername.value.trim())return alert("Nama/Alias dan Username wajib diisi.");if(!accountPassword.value)return alert("Sandi baru wajib diisi.");if(accountPassword.value!==accountConfirm.value)return alert("Konfirmasi sandi tidak sama.");a.name=accountName.value.trim();a.username=accountUsername.value.trim();a.password=accountPassword.value;localStorage.setItem("mabida_all_accounts_v2",JSON.stringify(all));load();table();alert("Perubahan akun berhasil disimpan.")};
+load();table();</script>
+</body></html>

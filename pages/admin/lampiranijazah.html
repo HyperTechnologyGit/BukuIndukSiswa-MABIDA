@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MABIDA Professional — Ijazah & Sertifikat TKA</title>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=8"></head>
+<body>
+<aside class="sidebar">
+<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"><div><b>BUKU INDUK</b><small>ADMINISTRASI TU</small></div></div>
+<div class="profile"><b id="userName">Administrator</b><small id="userRole">Admin / Tata Usaha</small></div>
+<nav>
+<div class="section">UTAMA</div><button class="nav" data-page="dashboard">Dashboard</button>
+<div class="section">BUKU INDUK SISWA</div>
+<button class="nav" data-page="identitas">Identitas Siswa</button>
+<button class="nav" data-page="kelas10">Hasil Belajar Kelas X</button>
+<button class="nav" data-page="kelas11">Hasil Belajar Kelas XI</button>
+<button class="nav" data-page="kelas12">Hasil Belajar Kelas XII</button>
+<button class="nav" data-page="lampiran">Ijazah & Sertifikat TKA</button>
+<div class="section">ADMINISTRASI</div><button class="nav" data-page="password">Kelola Sandi</button>
+</nav>
+<button class="logout" onclick="location.href='../../index.html'">Keluar</button>
+</aside>
+<main class="main"><header class="topbar"><div><small>MABIDA PROFESSIONAL / ADMIN TU</small><h1 id="pageTitle">Ijazah & Sertifikat TKA</h1></div>
+<div class="topright"><span>Jam <b id="topClock">00:00:00</b></span><span class="live">● LIVE</span><span id="topDate"></span></div></header>
+<section class="content">
+<div class="page-head"><div><span class="eyebrow">DOKUMEN</span><h2>Ijazah & Sertifikat TKA</h2><p class="sub">Simpan dokumen per siswa dan lihat kembali pada tabel.</p></div><div class="actions"><button class="btn green" id="saveDoc">Simpan Dokumen</button><button class="btn" onclick="window.print()">Print F4</button></div></div>
+<div class="card"><div class="formgrid"><div class="field"><label>Siswa *</label><select id="docStudent"></select></div><div class="field"><label>Jenis Dokumen</label><select id="docType"><option>Ijazah</option><option>Sertifikat TKA</option></select></div>
+<div class="field"><label>Nomor Dokumen</label><input id="docNumber"></div><div class="field"><label>Tanggal</label><input id="docDate" type="date"></div><div class="field" style="grid-column:1/-1"><label>Keterangan</label><textarea id="docNote"></textarea></div></div>
+<div class="dropzone">Area lampiran PDF / JPG / PNG — siap dihubungkan ke storage/backend.</div></div>
+<div class="card section-card"><h3>Dokumen Siswa yang Sudah Ditambahkan</h3><div class="table-wrap"><table class="table"><thead><tr><th>Siswa</th><th>Jenis</th><th>Nomor</th><th>Tanggal</th><th>Keterangan</th></tr></thead><tbody id="docTable"></tbody></table></div></div>
+</section></main>
+<script src="../../assets/js/admin-common.js?v=8"></script><script>
+initAdminShell("Ijazah & Sertifikat TKA");
+const docStudent=document.getElementById("docStudent");studentOptions(docStudent,getStudents());
+document.getElementById("saveDoc").onclick=()=>{const data=getStudents(),idx=data.findIndex(s=>s.id===docStudent.value);if(idx<0){alert("Pilih siswa terlebih dahulu.");return}data[idx].documents=data[idx].documents||[];data[idx].documents.push({type:document.getElementById("docType").value,number:document.getElementById("docNumber").value,date:document.getElementById("docDate").value,note:document.getElementById("docNote").value});saveStudents(data);renderDocs();alert("Dokumen berhasil disimpan.")};
+function renderDocs(){const rows=[];getStudents().forEach(s=>(s.documents||[]).forEach(d=>rows.push(`<tr><td><b>${escapeHtml(s.nama)}</b><br><small>${escapeHtml(s.nis||"")}</small></td><td>${escapeHtml(d.type)}</td><td>${escapeHtml(d.number||"-")}</td><td>${formatDate(d.date)}</td><td>${escapeHtml(d.note||"-")}</td></tr>`)));renderStudentRows("docTable",rows,"Belum ada dokumen yang ditambahkan.")}
+renderDocs();
+</script>
+</body></html>
