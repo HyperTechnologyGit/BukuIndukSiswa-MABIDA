@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MABIDA Professional — Kelola Sandi</title>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=6"></head>
+<body>
+<aside class="sidebar">
+<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"><div><b>BUKU INDUK</b><small>ADMINISTRASI TU</small></div></div>
+<div class="profile"><b id="userName">Administrator</b><small id="userRole">Admin / Tata Usaha</small></div>
+<nav>
+<div class="section">UTAMA</div><button class="nav" data-page="dashboard">Dashboard</button>
+<div class="section">BUKU INDUK SISWA</div>
+<button class="nav" data-page="identitas">Identitas Siswa</button>
+<button class="nav" data-page="kelas10">Hasil Belajar Kelas X</button>
+<button class="nav" data-page="kelas11">Hasil Belajar Kelas XI</button>
+<button class="nav" data-page="kelas12">Hasil Belajar Kelas XII</button>
+<button class="nav" data-page="lampiran">Ijazah & Sertifikat TKA</button>
+<div class="section">ADMINISTRASI</div><button class="nav" data-page="password">Kelola Sandi</button>
+</nav>
+<button class="logout" onclick="location.href='../../index.html'">Keluar</button>
+</aside>
+<main class="main"><header class="topbar"><div><small>MABIDA PROFESSIONAL / ADMIN TU</small><h1 id="pageTitle">Kelola Sandi</h1></div>
+<div class="topright"><span>Jam <b id="topClock">00:00:00</b></span><span class="live">● LIVE</span><span id="topDate"></span></div></header>
+<section class="content">
+<div class="page-head"><div><span class="eyebrow">KEAMANAN</span><h2>Kelola Sandi</h2><p class="sub">Pilih akun Wakil Kepala dari dropdown, lihat username, lalu tentukan sandi.</p></div><button class="btn green" id="saveWaka">Simpan Perubahan</button></div>
+<div class="card"><h3>Akun Wakil Kepala</h3><div class="formgrid">
+<div class="field"><label>Pilih Waka</label><select id="wakaSelect"></select></div>
+<div class="field"><label>Username</label><input id="wakaUsername" readonly></div>
+<div class="field"><label>Sandi Baru</label><input id="wakaPassword" type="password" placeholder="Masukkan sandi baru"></div>
+<div class="field"><label>Konfirmasi Sandi</label><input id="wakaConfirm" type="password" placeholder="Ulangi sandi"></div></div>
+<div id="passwordMessage" class="notice">Pilih Waka untuk melihat username dan mengatur sandi.</div></div>
+<div class="card section-card"><h3>Daftar Akun Waka</h3><table class="table"><thead><tr><th>Jabatan</th><th>Username</th><th>Status Sandi</th></tr></thead><tbody id="wakaTable"></tbody></table></div>
+<div class="card section-card"><h3>Akun Admin & Kepsek</h3><table class="table"><thead><tr><th>Dashboard</th><th>Username</th><th>Keterangan</th></tr></thead><tbody>
+<tr><td>Admin Utama</td><td>admin</td><td>Akun Admin/TU</td></tr><tr><td>Sub Admin</td><td>subadmin</td><td>Akun Admin/TU</td></tr><tr><td>Kepala Sekolah</td><td>kepsek</td><td>Akun Kepala Sekolah</td></tr></tbody></table></div>
+</section></main>
+<script src="../../assets/js/admin-common.js?v=6"></script><script>
+initAdminShell("Kelola Sandi");
+const wakaSelect=document.getElementById("wakaSelect");
+function renderWaka(){const data=getWakaAccounts();wakaSelect.innerHTML=data.map((a,i)=>`<option value="${i}">${escapeHtml(a.label)}</option>`).join("");renderStudentRows("wakaTable",data.map(a=>`<tr><td>${escapeHtml(a.label)}</td><td><b>${escapeHtml(a.username)}</b></td><td><span class="badge success">Sandi tersimpan</span></td></tr>`));loadWaka()}
+function loadWaka(){const a=getWakaAccounts()[Number(wakaSelect.value)||0];if(!a)return;document.getElementById("wakaUsername").value=a.username;document.getElementById("wakaPassword").value="";document.getElementById("wakaConfirm").value="";document.getElementById("passwordMessage").textContent=`${a.label} menggunakan username "${a.username}". Masukkan sandi baru jika ingin menggantinya.`}
+wakaSelect.onchange=loadWaka;
+document.getElementById("saveWaka").onclick=()=>{const data=getWakaAccounts(),i=Number(wakaSelect.value),pw=document.getElementById("wakaPassword").value,cf=document.getElementById("wakaConfirm").value;if(!pw){alert("Sandi baru wajib diisi.");return}if(pw!==cf){alert("Konfirmasi sandi tidak sama.");return}data[i].password=pw;saveWakaAccounts(data);document.getElementById("passwordMessage").textContent=`Sandi ${data[i].label} berhasil diperbarui.`;renderWaka()};
+renderWaka();
+</script>
+</body></html>
