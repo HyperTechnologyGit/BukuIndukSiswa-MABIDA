@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MABIDA Professional — Kelola Sandi</title>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=8"></head>
+<body>
+<aside class="sidebar">
+<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"><div><b>BUKU INDUK</b><small>ADMINISTRASI TU</small></div></div>
+<div class="profile"><b id="userName">Administrator</b><small id="userRole">Admin / Tata Usaha</small></div>
+<nav>
+<div class="section">UTAMA</div><button class="nav" data-page="dashboard">Dashboard</button>
+<div class="section">BUKU INDUK SISWA</div>
+<button class="nav" data-page="identitas">Identitas Siswa</button>
+<button class="nav" data-page="kelas10">Hasil Belajar Kelas X</button>
+<button class="nav" data-page="kelas11">Hasil Belajar Kelas XI</button>
+<button class="nav" data-page="kelas12">Hasil Belajar Kelas XII</button>
+<button class="nav" data-page="lampiran">Ijazah & Sertifikat TKA</button>
+<div class="section">ADMINISTRASI</div><button class="nav" data-page="password">Kelola Sandi</button>
+</nav>
+<button class="logout" onclick="location.href='../../index.html'">Keluar</button>
+</aside>
+<main class="main"><header class="topbar"><div><small>MABIDA PROFESSIONAL / ADMIN TU</small><h1 id="pageTitle">Kelola Sandi</h1></div>
+<div class="topright"><span>Jam <b id="topClock">00:00:00</b></span><span class="live">● LIVE</span><span id="topDate"></span></div></header>
+<section class="content">
+<div class="page-head"><div><span class="eyebrow">KEAMANAN & AKSES</span><h2>Kelola Sandi Semua Akun</h2><p class="sub">Edit nama, username, atau sandi akun. Gunakan aksi pada tabel untuk mengubah atau menghapus akun.</p></div></div>
+
+<div class="card section-card">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div><h3 style="margin-bottom:4px">Daftar Akun</h3><div class="sub">Perubahan disimpan pada perangkat ini.</div></div>
+    <span class="badge success" id="accountCount">0 Akun</span>
+  </div>
+  <div class="table-wrap" style="margin-top:14px"><table class="table">
+    <thead><tr><th>Kelompok</th><th>Nama / Alias</th><th>Username</th><th>Status</th><th style="width:170px">Aksi</th></tr></thead>
+    <tbody id="accountTable"></tbody>
+  </table></div>
+</div>
+</section></main>
+
+<!-- Popup Edit Akun -->
+<div class="modal-backdrop" id="editModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="editTitle">
+    <div class="modal-head">
+      <div><span class="eyebrow">EDIT AKUN</span><h3 id="editTitle">Edit Akun</h3><p class="sub" id="editSubtitle"></p></div>
+      <button type="button" class="modal-close" id="closeEdit" aria-label="Tutup">&times;</button>
+    </div>
+    <div class="formgrid">
+      <div class="field"><label>Kelompok Akun</label><input id="editGroup" readonly></div>
+      <div class="field"><label>Nama / Alias</label><input id="editName" autocomplete="off"></div>
+      <div class="field"><label>Username</label><input id="editUsername" autocomplete="off"></div>
+      <div class="field"><label>Sandi Baru</label><input id="editPassword" type="password" autocomplete="new-password" placeholder="Kosongkan jika tidak diubah"></div>
+      <div class="field"><label>Konfirmasi Sandi</label><input id="editConfirm" type="password" autocomplete="new-password" placeholder="Ulangi sandi baru"></div>
+    </div>
+    <div class="notice" id="editMessage">Perubahan akun akan disimpan saat tombol Simpan ditekan.</div>
+    <div class="modal-actions"><button type="button" class="btn" id="cancelEdit">Batal</button><button type="button" class="btn green" id="saveEdit">Simpan Perubahan</button></div>
+  </div>
+</div>
+
+<style>
+.modal-backdrop{position:fixed;inset:0;background:rgba(15,38,28,.42);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999;backdrop-filter:blur(3px)}
+.modal-backdrop.show{display:flex}
+.modal-box{width:min(680px,100%);background:#fff;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.22);padding:22px;border:1px solid #dce8df}
+.modal-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:18px}.modal-head h3{margin:3px 0 2px}.modal-close{border:0;background:#f1f5f2;border-radius:10px;width:38px;height:38px;font-size:25px;line-height:1;cursor:pointer;color:#31523f}.modal-close:hover{background:#e3eee7}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.modal-actions .btn{cursor:pointer}
+.table td:last-child{white-space:nowrap}.action-btn{border:0;border-radius:8px;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer;margin-right:5px}.action-edit{background:#e7f3eb;color:#17633b}.action-delete{background:#fbe9e9;color:#a52b2b}.action-btn:hover{filter:brightness(.96)}
+</style>
+
+<script src="../../assets/js/admin-common.js?v=8"></script>
+<script>
+initAdminShell("Kelola Sandi");
+const defaults={admin:[["Admin Utama","admin","admin123"],["Sub Admin","subadmin","subadmin123"]],kepsek:[["Kepala Sekolah","kepsek","kepsek123"]],wakil:[["Waka Kurikulum","wakakur","wakakur123"],["Waka Kesiswaan","wakasis","wakasis123"],["Waka Humasy","wakahumasy","humasy123"],["Waka Sarana Prasarana","wakasarpras","sarpras123"]],kopsis:[["Kopsis","kopsis","kopsis123"]],labkom:[["Labkom","labkom","labkom123"]],perpustakaan:[["Perpustakaan","perpustakaan","perpus123"]]};
+const labels={admin:"Admin",kepsek:"Kepala Sekolah",wakil:"Wakil Kepala",kopsis:"Kopsis",labkom:"Labkom",perpustakaan:"Perpustakaan"};
+function get(){try{const x=JSON.parse(localStorage.getItem("mabida_all_accounts_v2"));if(x&&typeof x==='object')return x}catch(e){}const x={};Object.keys(defaults).forEach(k=>x[k]=defaults[k].map(a=>({name:a[0],username:a[1],password:a[2]})));return x}
+let all=get();localStorage.setItem("mabida_all_accounts_v2",JSON.stringify(all));
+const modal=document.getElementById('editModal'), editGroup=document.getElementById('editGroup'), editName=document.getElementById('editName'), editUsername=document.getElementById('editUsername'), editPassword=document.getElementById('editPassword'), editConfirm=document.getElementById('editConfirm'), editSubtitle=document.getElementById('editSubtitle');
+let editing={group:null,index:null};
+function closeModal(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');editing={group:null,index:null}}
+function openEdit(group,index){const a=all[group]?.[index];if(!a)return;editing={group,index};editGroup.value=labels[group]||group;editName.value=a.name||'';editUsername.value=a.username||'';editPassword.value='';editConfirm.value='';editSubtitle.textContent='Mengubah akun '+(a.name||'');modal.classList.add('show');modal.setAttribute('aria-hidden','false');setTimeout(()=>editName.focus(),50)}
+function table(){let rows=[],count=0;Object.keys(all).forEach(g=>(all[g]||[]).forEach((a,i)=>{count++;rows.push(`<tr><td>${escapeHtml(labels[g]||g)}</td><td><b>${escapeHtml(a.name)}</b></td><td>${escapeHtml(a.username)}</td><td><span class="badge success">Sandi tersimpan</span></td><td><button type="button" class="action-btn action-edit" data-edit="${g}|${i}">Edit</button><button type="button" class="action-btn action-delete" data-delete="${g}|${i}">Hapus</button></td></tr>`)}));document.getElementById('accountTable').innerHTML=rows.length?rows.join(''):`<tr><td colspan="5" class="empty-row">Belum ada akun.</td></tr>`;document.getElementById('accountCount').textContent=count+' Akun';document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{const [g,i]=b.dataset.edit.split('|');openEdit(g,+i)});document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{const [g,i]=b.dataset.delete.split('|');deleteAccount(g,+i)})}
+function deleteAccount(group,index){const a=all[group]?.[index];if(!a)return;if(!confirm(`Hapus akun "${a.name}"? Akun ini tidak dapat digunakan untuk login setelah dihapus.`))return;all[group].splice(index,1);localStorage.setItem('mabida_all_accounts_v2',JSON.stringify(all));table();alert('Akun berhasil dihapus.')}
+document.getElementById('saveEdit').onclick=()=>{const {group,index}=editing,a=all[group]?.[index];if(!a)return;if(!editName.value.trim()||!editUsername.value.trim())return alert('Nama/Alias dan Username wajib diisi.');if(editPassword.value&&editPassword.value!==editConfirm.value)return alert('Konfirmasi sandi tidak sama.');a.name=editName.value.trim();a.username=editUsername.value.trim();if(editPassword.value)a.password=editPassword.value;localStorage.setItem('mabida_all_accounts_v2',JSON.stringify(all));table();closeModal();alert('Perubahan akun berhasil disimpan.')};
+document.getElementById('closeEdit').onclick=closeModal;document.getElementById('cancelEdit').onclick=closeModal;modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('show'))closeModal()});
+table();
+</script>
+</body></html>
