@@ -1,22 +1,22 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MABIDA Professional — Kelola Sandi</title>
-<link rel="stylesheet" href="../../assets/css/admin.css?v=8"></head>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=20"></head>
 <body>
 <aside class="sidebar">
-<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"><div><b>BUKU INDUK</b><small>ADMINISTRASI TU</small></div></div>
+<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"></div>
 <div class="profile"><b id="userName">Administrator</b><small id="userRole">Admin / Tata Usaha</small></div>
 <nav>
-<div class="section">UTAMA</div><button class="nav" data-page="dashboard">Dashboard</button>
+<div class="section">UTAMA</div><button class="nav" data-page="dashboard" data-label="Dashboard">Dashboard</button>
 <div class="section">BUKU INDUK SISWA</div>
-<button class="nav" data-page="identitas">Identitas Siswa</button>
-<button class="nav" data-page="kelas10">Hasil Belajar Kelas X</button>
-<button class="nav" data-page="kelas11">Hasil Belajar Kelas XI</button>
-<button class="nav" data-page="kelas12">Hasil Belajar Kelas XII</button>
-<button class="nav" data-page="lampiran">Ijazah & Sertifikat TKA</button>
-<div class="section">ADMINISTRASI</div><button class="nav" data-page="password">Kelola Sandi</button>
+<button class="nav" data-page="identitas" data-label="Identitas Siswa">Identitas Siswa</button>
+<button class="nav" data-page="kelas10" data-label="Hasil Belajar Kelas X">Hasil Belajar Kelas X</button>
+<button class="nav" data-page="kelas11" data-label="Hasil Belajar Kelas XI">Hasil Belajar Kelas XI</button>
+<button class="nav" data-page="kelas12" data-label="Hasil Belajar Kelas XII">Hasil Belajar Kelas XII</button>
+<button class="nav" data-page="lampiran" data-label="Ijazah & Sertifikat TKA">Ijazah & Sertifikat TKA</button>
+<div class="section">ADMINISTRASI</div><button class="nav" data-page="password" data-label="Kelola Sandi">Kelola Sandi</button>
 </nav>
-<button class="logout" onclick="location.href='../../index.html'">Keluar</button>
+<button class="logout" onclick="location.href='../../index.html'" data-label="Keluar">Keluar</button>
 </aside>
 <main class="main"><header class="topbar"><div><small>MABIDA PROFESSIONAL / ADMIN TU</small><h1 id="pageTitle">Kelola Sandi</h1></div>
 <div class="topright"><span>Jam <b id="topClock">00:00:00</b></span><span class="live">● LIVE</span><span id="topDate"></span></div></header>
@@ -40,7 +40,7 @@
   <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="editTitle">
     <div class="modal-head">
       <div><span class="eyebrow">EDIT AKUN</span><h3 id="editTitle">Edit Akun</h3><p class="sub" id="editSubtitle"></p></div>
-      <button type="button" class="modal-close" id="closeEdit" aria-label="Tutup">&times;</button>
+      <button type="button" class="modal-close" id="closeEdit" aria-label="Tutup" data-label="&times;">&times;</button>
     </div>
     <div class="formgrid">
       <div class="field"><label>Kelompok Akun</label><input id="editGroup" readonly></div>
@@ -50,7 +50,7 @@
       <div class="field"><label>Konfirmasi Sandi</label><input id="editConfirm" type="password" autocomplete="new-password" placeholder="Ulangi sandi baru"></div>
     </div>
     <div class="notice" id="editMessage">Perubahan akun akan disimpan saat tombol Simpan ditekan.</div>
-    <div class="modal-actions"><button type="button" class="btn" id="cancelEdit">Batal</button><button type="button" class="btn green" id="saveEdit">Simpan Perubahan</button></div>
+    <div class="modal-actions"><button type="button" class="btn" id="cancelEdit" data-label="Batal">Batal</button><button type="button" class="btn green" id="saveEdit" data-label="Simpan Perubahan">Simpan Perubahan</button></div>
   </div>
 </div>
 
@@ -63,7 +63,7 @@
 .table td:last-child{white-space:nowrap}.action-btn{border:0;border-radius:8px;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer;margin-right:5px}.action-edit{background:#e7f3eb;color:#17633b}.action-delete{background:#fbe9e9;color:#a52b2b}.action-btn:hover{filter:brightness(.96)}
 </style>
 
-<script src="../../assets/js/admin-common.js?v=8"></script>
+<script src="../../assets/js/admin-common.js?v=20"></script>
 <script>
 initAdminShell("Kelola Sandi");
 const defaults={admin:[["Admin Utama","admin","admin123"],["Sub Admin","subadmin","subadmin123"]],kepsek:[["Kepala Sekolah","kepsek","kepsek123"]],wakil:[["Waka Kurikulum","wakakur","wakakur123"],["Waka Kesiswaan","wakasis","wakasis123"],["Waka Humasy","wakahumasy","humasy123"],["Waka Sarana Prasarana","wakasarpras","sarpras123"]],kopsis:[["Kopsis","kopsis","kopsis123"]],labkom:[["Labkom","labkom","labkom123"]],perpustakaan:[["Perpustakaan","perpustakaan","perpus123"]]};
@@ -74,7 +74,7 @@ const modal=document.getElementById('editModal'), editGroup=document.getElementB
 let editing={group:null,index:null};
 function closeModal(){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');editing={group:null,index:null}}
 function openEdit(group,index){const a=all[group]?.[index];if(!a)return;editing={group,index};editGroup.value=labels[group]||group;editName.value=a.name||'';editUsername.value=a.username||'';editPassword.value='';editConfirm.value='';editSubtitle.textContent='Mengubah akun '+(a.name||'');modal.classList.add('show');modal.setAttribute('aria-hidden','false');setTimeout(()=>editName.focus(),50)}
-function table(){let rows=[],count=0;Object.keys(all).forEach(g=>(all[g]||[]).forEach((a,i)=>{count++;rows.push(`<tr><td>${escapeHtml(labels[g]||g)}</td><td><b>${escapeHtml(a.name)}</b></td><td>${escapeHtml(a.username)}</td><td><span class="badge success">Sandi tersimpan</span></td><td><button type="button" class="action-btn action-edit" data-edit="${g}|${i}">Edit</button><button type="button" class="action-btn action-delete" data-delete="${g}|${i}">Hapus</button></td></tr>`)}));document.getElementById('accountTable').innerHTML=rows.length?rows.join(''):`<tr><td colspan="5" class="empty-row">Belum ada akun.</td></tr>`;document.getElementById('accountCount').textContent=count+' Akun';document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{const [g,i]=b.dataset.edit.split('|');openEdit(g,+i)});document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{const [g,i]=b.dataset.delete.split('|');deleteAccount(g,+i)})}
+function table(){let rows=[],count=0;Object.keys(all).forEach(g=>(all[g]||[]).forEach((a,i)=>{count++;rows.push(`<tr><td>${escapeHtml(labels[g]||g)}</td><td><b>${escapeHtml(a.name)}</b></td><td>${escapeHtml(a.username)}</td><td><span class="badge success">Sandi tersimpan</span></td><td><button type="button" class="action-btn action-edit" data-edit="${g}|${i}" data-label="Edit">Edit</button><button type="button" class="action-btn action-delete" data-delete="${g}|${i}" data-label="Hapus">Hapus</button></td></tr>`)}));document.getElementById('accountTable').innerHTML=rows.length?rows.join(''):`<tr><td colspan="5" class="empty-row">Belum ada akun.</td></tr>`;document.getElementById('accountCount').textContent=count+' Akun';document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{const [g,i]=b.dataset.edit.split('|');openEdit(g,+i)});document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{const [g,i]=b.dataset.delete.split('|');deleteAccount(g,+i)})}
 function deleteAccount(group,index){const a=all[group]?.[index];if(!a)return;if(!confirm(`Hapus akun "${a.name}"? Akun ini tidak dapat digunakan untuk login setelah dihapus.`))return;all[group].splice(index,1);localStorage.setItem('mabida_all_accounts_v2',JSON.stringify(all));table();alert('Akun berhasil dihapus.')}
 document.getElementById('saveEdit').onclick=()=>{const {group,index}=editing,a=all[group]?.[index];if(!a)return;if(!editName.value.trim()||!editUsername.value.trim())return alert('Nama/Alias dan Username wajib diisi.');if(editPassword.value&&editPassword.value!==editConfirm.value)return alert('Konfirmasi sandi tidak sama.');a.name=editName.value.trim();a.username=editUsername.value.trim();if(editPassword.value)a.password=editPassword.value;localStorage.setItem('mabida_all_accounts_v2',JSON.stringify(all));table();closeModal();alert('Perubahan akun berhasil disimpan.')};
 document.getElementById('closeEdit').onclick=closeModal;document.getElementById('cancelEdit').onclick=closeModal;modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('show'))closeModal()});

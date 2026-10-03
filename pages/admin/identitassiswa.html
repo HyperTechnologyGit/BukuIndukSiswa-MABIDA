@@ -1,28 +1,28 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MABIDA Professional — Identitas Siswa</title>
-<link rel="stylesheet" href="../../assets/css/admin.css?v=8"></head>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=20"></head>
 <body>
 <aside class="sidebar">
-<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"><div><b>BUKU INDUK</b><small>ADMINISTRASI TU</small></div></div>
+<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"></div>
 <div class="profile"><b id="userName">Administrator</b><small id="userRole">Admin / Tata Usaha</small></div>
 <nav>
-<div class="section">UTAMA</div><button class="nav" data-page="dashboard">Dashboard</button>
+<div class="section">UTAMA</div><button class="nav" data-page="dashboard" data-label="Dashboard">Dashboard</button>
 <div class="section">BUKU INDUK SISWA</div>
-<button class="nav" data-page="identitas">Identitas Siswa</button>
-<button class="nav" data-page="kelas10">Hasil Belajar Kelas X</button>
-<button class="nav" data-page="kelas11">Hasil Belajar Kelas XI</button>
-<button class="nav" data-page="kelas12">Hasil Belajar Kelas XII</button>
-<button class="nav" data-page="lampiran">Ijazah & Sertifikat TKA</button>
-<div class="section">ADMINISTRASI</div><button class="nav" data-page="password">Kelola Sandi</button>
+<button class="nav" data-page="identitas" data-label="Identitas Siswa">Identitas Siswa</button>
+<button class="nav" data-page="kelas10" data-label="Hasil Belajar Kelas X">Hasil Belajar Kelas X</button>
+<button class="nav" data-page="kelas11" data-label="Hasil Belajar Kelas XI">Hasil Belajar Kelas XI</button>
+<button class="nav" data-page="kelas12" data-label="Hasil Belajar Kelas XII">Hasil Belajar Kelas XII</button>
+<button class="nav" data-page="lampiran" data-label="Ijazah & Sertifikat TKA">Ijazah & Sertifikat TKA</button>
+<div class="section">ADMINISTRASI</div><button class="nav" data-page="password" data-label="Kelola Sandi">Kelola Sandi</button>
 </nav>
-<button class="logout" onclick="location.href='../../index.html'">Keluar</button>
+<button class="logout" onclick="location.href='../../index.html'" data-label="Keluar">Keluar</button>
 </aside>
 <main class="main"><header class="topbar"><div><small>MABIDA PROFESSIONAL / ADMIN TU</small><h1 id="pageTitle">Identitas Siswa</h1></div>
 <div class="topright"><span>Jam <b id="topClock">00:00:00</b></span><span class="live">● LIVE</span><span id="topDate"></span></div></header>
 <section class="content">
 <div class="page-head"><div><span class="eyebrow">DATA SISWA</span><h2>Identitas Siswa</h2><p class="sub">Tambahkan data siswa. Data tersimpan langsung tampil pada tabel di bawah.</p></div>
-<div class="actions"><button class="btn green" id="saveStudent">Simpan Data Siswa</button><button class="btn" onclick="window.print()">Print F4</button></div></div>
+<div class="actions"><button class="btn green" id="saveStudent" data-label="Simpan Data Siswa">Simpan Data Siswa</button><button class="btn" onclick="window.print()" data-label="Print F4">Print F4</button></div></div>
 <div class="card"><div class="student-layout"><div><div class="photo-box">FOTO SISWA<br><small>3 × 4</small></div></div>
 <div class="formgrid">
 <div class="field"><label>NIS *</label><input id="nis"></div><div class="field"><label>NISN</label><input id="nisn"></div>
@@ -49,7 +49,7 @@
 <table class="table"><thead><tr><th>NIS</th><th>NISN</th><th>Nama</th><th>Kelas</th><th>JK</th><th>No HP</th><th>Aksi</th></tr></thead><tbody id="studentTable"></tbody></table>
 </div></div>
 </section></main>
-<script src="../../assets/js/admin-common.js?v=8"></script><script>
+<script src="../../assets/js/admin-common.js?v=20"></script><script>
 initAdminShell("Identitas Siswa");
 const ids=["nis","nisn","nama","panggilan","tempatLahir","tglLahir","jk","kelas","nik","noHp","alamat","ayahNama","ayahUmur","ayahPekerjaan","ayahPenghasilan","ayahHp","ayahAlamat","ibuNama","ibuUmur","ibuPekerjaan","ibuPenghasilan","ibuHp","ibuAlamat","waliNama","waliUmur","waliPekerjaan","waliPenghasilan","waliHp","waliAlamat"];
 const val=id=>document.getElementById(id)?.value||"";
@@ -57,7 +57,7 @@ const setVal=(id,v)=>{const e=document.getElementById(id);if(e)e.value=v||""};
 function collect(){return{nis:val("nis"),nisn:val("nisn"),nama:val("nama"),panggilan:val("panggilan"),tempatLahir:val("tempatLahir"),tglLahir:val("tglLahir"),jk:val("jk"),kelas:val("kelas"),nik:val("nik"),noHp:val("noHp"),alamat:val("alamat"),ayah:{nama:val("ayahNama"),umur:val("ayahUmur"),pekerjaan:val("ayahPekerjaan"),penghasilan:val("ayahPenghasilan"),hp:val("ayahHp"),alamat:val("ayahAlamat")},ibu:{nama:val("ibuNama"),umur:val("ibuUmur"),pekerjaan:val("ibuPekerjaan"),penghasilan:val("ibuPenghasilan"),hp:val("ibuHp"),alamat:val("ibuAlamat")},wali:{nama:val("waliNama"),umur:val("waliUmur"),pekerjaan:val("waliPekerjaan"),penghasilan:val("waliPenghasilan"),hp:val("waliHp"),alamat:val("waliAlamat")}}}
 function loadStudent(id){const s=getStudents().find(x=>x.id===id);if(!s)return;["nis","nisn","nama","panggilan","tempatLahir","tglLahir","jk","kelas","nik","noHp","alamat"].forEach(k=>setVal(k,s[k]));["ayah","ibu","wali"].forEach(g=>Object.entries(s[g]||{}).forEach(([k,v])=>setVal(g+k.charAt(0).toUpperCase()+k.slice(1),v)));window.scrollTo({top:0,behavior:"smooth"})}
 function deleteStudent(id){if(!confirm("Hapus data siswa ini?"))return;saveStudents(getStudents().filter(s=>s.id!==id));render()}
-function render(){renderStudentRows("studentTable",getStudents().map(s=>`<tr><td>${escapeHtml(s.nis||"-")}</td><td>${escapeHtml(s.nisn||"-")}</td><td><b>${escapeHtml(s.nama||"-")}</b><br><small>${escapeHtml(s.panggilan||"")}</small></td><td>${escapeHtml(s.kelas||"-")}</td><td>${escapeHtml(s.jk||"-")}</td><td>${escapeHtml(s.noHp||"-")}</td><td><button class="mini-btn" onclick="loadStudent('${escapeHtml(s.id)}')">Edit</button><button class="mini-btn danger" onclick="deleteStudent('${escapeHtml(s.id)}')">Hapus</button></td></tr>`),"Belum ada siswa yang ditambahkan.")}
+function render(){renderStudentRows("studentTable",getStudents().map(s=>`<tr><td>${escapeHtml(s.nis||"-")}</td><td>${escapeHtml(s.nisn||"-")}</td><td><b>${escapeHtml(s.nama||"-")}</b><br><small>${escapeHtml(s.panggilan||"")}</small></td><td>${escapeHtml(s.kelas||"-")}</td><td>${escapeHtml(s.jk||"-")}</td><td>${escapeHtml(s.noHp||"-")}</td><td><button class="mini-btn" onclick="loadStudent('${escapeHtml(s.id)}')" data-label="Edit">Edit</button><button class="mini-btn danger" onclick="deleteStudent('${escapeHtml(s.id)}')" data-label="Hapus">Hapus</button></td></tr>`),"Belum ada siswa yang ditambahkan.")}
 document.getElementById("saveStudent").onclick=()=>{const s=collect();if(!s.nis||!s.nama){alert("NIS dan Nama Lengkap wajib diisi.");return}const data=getStudents();const old=data.find(x=>x.nis===s.nis);if(old){s.id=old.id;s.results=old.results||{};s.documents=old.documents||[];data[data.findIndex(x=>x.id===old.id)]=s}else{s.id=crypto.randomUUID?crypto.randomUUID():String(Date.now());s.results={};s.documents=[];data.push(s)}saveStudents(data);render();alert("Data siswa berhasil disimpan.")};
 render();
 </script>

@@ -1,0 +1,58 @@
+const params=new URLSearchParams(location.search);
+const ROLE=params.get('role')||document.body.dataset.role||'';
+const NAME=decodeURIComponent(params.get('name')||document.body.dataset.name||'');
+function e(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function storeKey(){return 'mabida_role_'+(ROLE||document.body.dataset.role||'data')+'_'+location.pathname.split('/').pop()}
+function readData(){try{return JSON.parse(localStorage.getItem(storeKey())||'[]')}catch(_){return[]}}
+function writeData(v){localStorage.setItem(storeKey(),JSON.stringify(v))}
+function clock(){const n=new Date();const t=document.getElementById('clock');const d=document.getElementById('date');if(t)t.textContent=n.toLocaleTimeString('id-ID',{hour12:false});if(d)d.textContent=n.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'})}
+clock();setInterval(clock,1000);
+function iconSvg(text){
+ const t=String(text||'').toLowerCase();
+ const paths={
+  'dashboard':'<path d="M3 10.5 10 4l7 6.5V17a1 1 0 0 1-1 1h-4v-5H8v5H4a1 1 0 0 1-1-1z"/>',
+  'identitas':'<circle cx="10" cy="7" r="3"/><path d="M4 18a6 6 0 0 1 12 0"/>',
+  'sertifikasi':'<path d="M5 3h10v12H5z"/><path d="M7 6h6M7 9h6M7 12h4"/><path d="m8 15-1 3 3-1 3 1-1-3"/>',
+  'program':'<path d="M5 3h10v14H5z"/><path d="M7 7h6M7 10h6M7 13h4"/>',
+  'supervisi':'<circle cx="9" cy="9" r="5"/><path d="m13 13 4 4M7 9h4M9 7v4"/>',
+  'monitoring':'<path d="M4 16V9M8 16V6M12 16v-4M16 16V4"/><path d="M3 18h14"/>',
+  'jadwal':'<rect x="3" y="4" width="14" height="13" rx="1"/><path d="M6 2v4M14 2v4M3 8h14"/>',
+  'modul':'<path d="M4 4h5a2 2 0 0 1 2 2v10H6a2 2 0 0 0-2 2zM16 4h-5a2 2 0 0 0-2 2v10h5a2 2 0 0 1 2 2z"/>',
+  'inventaris':'<path d="M4 6h12v11H4z"/><path d="M7 6V4h6v2M7 9h6M7 12h6"/>',
+  'maintenance':'<path d="m14 5 1-2 2 2-2 2M13 6l-8 8a2 2 0 1 0 3 3l8-8M4 17l3 0"/>',
+  'diagram':'<path d="M4 16V9M8 16V6M12 16v-3M16 16V4"/><path d="M3 18h14"/>',
+  'anggota':'<circle cx="7" cy="7" r="3"/><path d="M2.5 18a4.5 4.5 0 0 1 9 0M14 5a3 3 0 0 1 0 5M13 13a4 4 0 0 1 4 5"/>',
+  'mou':'<path d="M5 3h7l3 3v11H5z"/><path d="M12 3v4h4M7 11h6M7 14h5"/>',
+  'kerja':'<path d="M4 5h12v12H4z"/><path d="M7 3v4M13 3v4M4 9h12M7 12h6M7 15h4"/>',
+  'osIS':'<path d="M10 3 12 7l4 .6-3 2.9.7 4.5-3.7-2-3.7 2 .7-4.5-3-2.9L8 7z"/>',
+  'pengadaan':'<path d="M3 4h2l2 9h7l2-6H6"/><circle cx="8" cy="17" r="1"/><circle cx="14" cy="17" r="1"/>',
+  'penjualan':'<path d="M4 5h12v11H4z"/><path d="M7 9h6M7 12h4"/>',
+  'lab':'<path d="M8 3h4M9 3v5l-4 7a2 2 0 0 0 2 3h6a2 2 0 0 0 2-3l-4-7V3"/><path d="M6 14h8"/>',
+  'perpustakaan':'<path d="M4 4h5a2 2 0 0 1 2 2v12H6a2 2 0 0 0-2 2zM16 4h-5a2 2 0 0 0-2 2v12h5a2 2 0 0 1 2 2z"/>',
+  'logout':'<path d="M8 4H4v12h4M12 7l4 3-4 3M7 10h9"/>'
+ };
+ let key='program';
+ if(t.includes('dashboard'))key='dashboard'; else if(t.includes('identitas'))key='identitas'; else if(t.includes('sertifikasi'))key='sertifikasi'; else if(t.includes('supervisi'))key='supervisi'; else if(t.includes('monitoring')||t.includes('evaluasi'))key='monitoring'; else if(t.includes('jadwal'))key='jadwal'; else if(t.includes('modul'))key='modul'; else if(t.includes('inventaris'))key='inventaris'; else if(t.includes('maintenance')||t.includes('pemeliharaan'))key='maintenance'; else if(t.includes('diagram'))key='diagram'; else if(t.includes('anggota')||t.includes('member'))key='anggota'; else if(t.includes('mou')||t.includes('kerja sama'))key='mou'; else if(t.includes('osis'))key='osIS'; else if(t.includes('pengadaan'))key='pengadaan'; else if(t.includes('penjualan'))key='penjualan'; else if(t.includes('lab'))key='lab'; else if(t.includes('perpustakaan'))key='perpustakaan';
+ return `<svg viewBox="0 0 20 20" aria-hidden="true">${paths[key]||paths.program}</svg>`;
+}
+function initRoleShell(title){
+ const shell=document.querySelector('.role-shell');const sidebar=document.querySelector('.role-sidebar');const profileName=document.getElementById('roleName');if(!shell)return;
+ if(profileName)profileName.textContent=NAME||'Pengguna';const rt=document.getElementById('roleText');if(rt)rt.textContent=ROLE.toUpperCase()||'DASHBOARD';const pt=document.getElementById('pageTitle');if(pt)pt.textContent=title;
+ document.querySelectorAll('.role-nav a,.logout').forEach(a=>{if(!a.querySelector('.nav-icon')){const s=document.createElement('span');s.className='nav-icon';s.innerHTML=iconSvg(a.textContent);a.prepend(s)}if(!a.querySelector('.nav-label')){const l=document.createElement('span');l.className='nav-label';while(a.childNodes.length>1)l.appendChild(a.childNodes[1]);a.appendChild(l)}});
+ const current=location.pathname.split('/').pop(),query=location.search||'',links=[...document.querySelectorAll('.role-nav a[data-file]')];
+ links.forEach(a=>{const active=a.dataset.file===current;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');a.href=a.dataset.file+query;a.dataset.tooltip=a.querySelector('.nav-label')?.textContent.trim()||''});
+ const desktop=()=>window.innerWidth>600;function applySaved(){if(!desktop())return;shell.classList.remove('sidebar-animating');shell.classList.toggle('sidebar-collapsed',localStorage.getItem('mabida_sidebar_collapsed')==='1')}
+ applySaved();
+ function toggleSidebar(){if(!desktop()){sidebar?.classList.toggle('open');return}const next=!shell.classList.contains('sidebar-collapsed');shell.classList.remove('sidebar-animating');void shell.offsetWidth;shell.classList.add('sidebar-animating');shell.classList.toggle('sidebar-collapsed',next);localStorage.setItem('mabida_sidebar_collapsed',next?'1':'0');clearTimeout(shell._sidebarTimer);shell._sidebarTimer=setTimeout(()=>shell.classList.remove('sidebar-animating'),320)}
+ const brand=document.querySelector('.brand');brand?.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();toggleSidebar()});brand?.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();toggleSidebar()}});brand?.setAttribute('role','button');brand?.setAttribute('tabindex','0');brand?.removeAttribute('title');brand?.setAttribute('aria-label','Toggle sidebar');
+ window.addEventListener('resize',()=>{if(desktop()){sidebar?.classList.remove('open');applySaved()}else shell.classList.remove('sidebar-collapsed','sidebar-animating')});
+ document.querySelectorAll('[data-print]').forEach(b=>b.onclick=()=>window.print());const cards=[...document.querySelectorAll('.grid .stat[data-click-nav]')],targets=links.filter(a=>a.dataset.file!==current&&!a.dataset.file.toLowerCase().includes('dashboard'));cards.forEach((card,i)=>{const target=targets[i];if(!target)return;card.style.cursor='pointer';card.setAttribute('role','link');card.setAttribute('tabindex','0');const go=()=>location.href=target.href;card.addEventListener('click',go);card.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go()}})})
+}
+
+function renderRows(id,rows,cols=1){const el=document.getElementById(id);if(!el)return;el.innerHTML=rows.length?rows.join(''):`<tr><td colspan="${cols}" class="empty">Belum ada data.</td></tr>`}
+function addBasicRecord(formId,tableId,fields){const form=document.getElementById(formId);if(!form)return;let data=readData();const render=()=>renderRows(tableId,data.map((r,i)=>`<tr>${fields.map(f=>`<td>${e(r[f.key]||'-')}</td>`).join('')}<td><button class="btn" type="button" onclick="editRecord(${i})">Edit</button> <button class="btn danger" type="button" onclick="deleteRecord(${i})">Hapus</button></td></tr>`),fields.length+1);render();window.editRecord=(i)=>{const r=data[i];fields.forEach(f=>{const el=form.elements[f.key];if(el)el.value=r[f.key]||''});form.dataset.edit=i;form.scrollIntoView({behavior:'smooth'});};window.deleteRecord=(i)=>{if(confirm('Hapus data ini?')){data.splice(i,1);writeData(data);render()}};form.addEventListener('submit',ev=>{ev.preventDefault();const obj={};fields.forEach(f=>obj[f.key]=form.elements[f.key]?.value||'');const idx=form.dataset.edit;if(idx!==undefined&&idx!==''){data[+idx]=obj;delete form.dataset.edit}else data.push(obj);writeData(data);form.reset();render();alert('Data berhasil disimpan.')})}
+function csvExport(data,headers,filename){const lines=[headers.join(','),...data.map(r=>headers.map(h=>'"'+String(r[h]??'').replaceAll('"','""')+'"').join(','))];const blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+function wireExport(dataFn,headers,filename,btnId){const b=document.getElementById(btnId);if(b)b.onclick=()=>csvExport(dataFn(),headers,filename)}
+function wireUpload(inputId,listId){const input=document.getElementById(inputId),list=document.getElementById(listId);if(!input)return;input.onchange=()=>{const files=[...input.files];const key=storeKey()+'_uploads';let old=[];try{old=JSON.parse(localStorage.getItem(key)||'[]')}catch(_){}files.forEach(f=>old.push({name:f.name,size:f.size,type:f.type,time:new Date().toISOString()}));localStorage.setItem(key,JSON.stringify(old));if(list)list.innerHTML=old.map(x=>`<div class="notice" style="margin-top:7px"><b>${e(x.name)}</b> <span>${Math.round(x.size/1024)} KB</span></div>`).join('');alert('Dokumen tercatat. Pada GitHub Pages, file asli tidak diunggah ke server; metadata file disimpan di browser.')}}
+function setupSignature(canvasId,saveId,clearId){const c=document.getElementById(canvasId);if(!c)return;const ctx=c.getContext('2d');let down=false,last=null;function resize(){const r=c.getBoundingClientRect(),d=devicePixelRatio||1;c.width=r.width*d;c.height=r.height*d;ctx.setTransform(d,0,0,d,0,0);ctx.lineWidth=2;ctx.lineCap='round';ctx.strokeStyle='#173326'}resize();window.addEventListener('resize',resize);function pos(ev){const r=c.getBoundingClientRect();return{x:ev.clientX-r.left,y:ev.clientY-r.top}}function start(ev){down=true;last=pos(ev);c.setPointerCapture?.(ev.pointerId);ev.preventDefault()}function move(ev){if(!down)return;const p=pos(ev);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;ev.preventDefault()}function end(){down=false;last=null}c.addEventListener('pointerdown',start);c.addEventListener('pointermove',move);c.addEventListener('pointerup',end);c.addEventListener('pointercancel',end);c.addEventListener('pointerleave',end);document.getElementById(clearId)?.addEventListener('click',()=>ctx.clearRect(0,0,c.width,c.height));document.getElementById(saveId)?.addEventListener('click',()=>{localStorage.setItem(storeKey()+'_signature',c.toDataURL());alert('TTD digital disimpan di browser ini.')})}
+function wireCsvImport(inputId,fields,after){const input=document.getElementById(inputId);if(!input)return;input.onchange=()=>{const file=input.files?.[0];if(!file)return;const rd=new FileReader();rd.onload=()=>{const lines=String(rd.result||'').split(/\r?\n/).filter(Boolean);if(lines.length<2)return;const parse=line=>{const out=[];let cur='',q=false;for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'&&line[i+1]==='"'){cur+='"';i++;continue}if(ch==='"'){q=!q;continue}if(ch===','&&!q){out.push(cur);cur='';continue}cur+=ch}out.push(cur);return out};const heads=parse(lines[0]);const data=readData();lines.slice(1).forEach(line=>{const vals=parse(line),o={};heads.forEach((h,i)=>{const f=fields.find(x=>x.key===h||x.label===h);if(f)o[f.key]=vals[i]||''});data.push(o)});writeData(data);after?.();alert('Import CSV berhasil.');};rd.readAsText(file)}}

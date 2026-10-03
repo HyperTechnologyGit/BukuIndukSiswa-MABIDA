@@ -1,0 +1,6 @@
+MABIDA — VERSI TERBARU DASHBOARD ROLE
+
+Dashboard Admin Utama sengaja dipertahankan dari versi sebelumnya.
+Dashboard baru: Kepsek, Waka Kurikulum, Waka Kesiswaan, Waka Humasy, Waka Sarpras, Kopsis, Labkom, Perpustakaan, Sub Admin.
+Fitur umum: jam real time, sidebar aktif, form/tabel, edit/hapus, print, CSV import/export dasar, upload metadata, monitoring bulanan, TTD digital.
+Catatan: GitHub Pages bersifat statis; upload file asli dan akun/data bersama antar perangkat memerlukan backend. Versi ini menyimpan data aplikasi di localStorage browser.

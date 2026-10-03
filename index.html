@@ -56,6 +56,29 @@
 
   <footer><strong>MABIDA PROFESSIONAL</strong><span>•</span>Bersinergi untuk Pendidikan yang Lebih Baik</footer>
 </main>
-<script src="assets/js/login.js"></script>
+<script src="assets/js/login.js?v=20261002"></script>
+<script>
+/* Fallback login initializer: keeps login functional even if cached script is stale. */
+window.addEventListener("DOMContentLoaded", function(){
+  if (window.MABIDA_LOGIN_READY) return;
+  const defaults={
+    admin:[{name:"Admin Utama",username:"admin",password:"admin123"},{name:"Sub Admin",username:"subadmin",password:"subadmin123"}],
+    kepsek:[{name:"Kepala Sekolah",username:"kepsek",password:"kepsek123"}],
+    wakil:[{name:"Waka Kurikulum",username:"wakakur",password:"wakakur123"},{name:"Waka Kesiswaan",username:"wakasis",password:"wakasis123"},{name:"Waka Humasy",username:"wakahumasy",password:"humasy123"},{name:"Waka Sarana Prasarana",username:"wakasarpras",password:"sarpras123"}],
+    kopsis:[{name:"Kopsis",username:"kopsis",password:"kopsis123"}],
+    labkom:[{name:"Labkom",username:"labkom",password:"labkom123"}],
+    perpustakaan:[{name:"Perpustakaan",username:"perpustakaan",password:"perpus123"}]
+  };
+  const meta={admin:["Login Admin","Admin Utama & Sub Admin"],kepsek:["Login Kepala Sekolah","Akun Kepala Sekolah"],wakil:["Login Wakil Kepala","Pilih akun Waka"],kopsis:["Login Kopsis","Akun Koperasi Siswa"],labkom:["Login Lab Komputer","Akun Laboratorium Komputer"],perpustakaan:["Login Perpustakaan","Akun Perpustakaan"]};
+  const buttons=document.querySelectorAll(".role[data-role]"), sel=document.getElementById("account"), pass=document.getElementById("password"), msg=document.getElementById("message"), title=document.getElementById("loginTitle"), info=document.getElementById("accountInfo");
+  let role="admin";
+  function saved(){try{return JSON.parse(localStorage.getItem("mabida_all_accounts_v2"))||{}}catch(e){return {}}}
+  function accounts(r){const d=defaults[r]||[], x=saved()[r]; if(!Array.isArray(x)) return d; return x.map((a,i)=>({name:a.name||d[i]?.name||"Akun",username:a.username||d[i]?.username||"",password:a.password??d[i]?.password||""}));}
+  function setMsg(t,c){msg.textContent=t||"";msg.className="message"+(c?" "+c:"")}
+  function fill(r){role=r; const list=accounts(r); buttons.forEach(b=>b.classList.toggle("active",b.dataset.role===r)); title.textContent=meta[r][0]; info.textContent=meta[r][1]; sel.innerHTML=list.map((a,i)=>`<option value="${i}">${a.name.replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;"}[m]))}</option>`).join(""); pass.value=""; setMsg("");}
+  function go(){const a=accounts(role)[Number(sel.value||0)]; if(!a){setMsg("Akun tidak tersedia.","err");return} if(pass.value!==a.password){setMsg("Sandi tidak sesuai. Silakan periksa kembali.","err");return} let target;if(role==="admin") target=a.username==="subadmin"?"pages/subadmin/monitoringbulanan.html":"pages/admin/dashboardadmin.html"; else if(role==="kepsek")target="pages/kepsek/dashboardkepsek.html"; else if(role==="kopsis")target="pages/kopsis/dashboardkopsis.html"; else if(role==="labkom")target="pages/labkom/dashboardlabkom.html"; else if(role==="perpustakaan")target="pages/perpustakaan/dashboardperpustakaan.html"; else {const f={wakakur:"wakakur",wakasis:"wakasis",wakahumasy:"wakahumasy",wakasarpras:"wakasarpras"}[a.username]||"wakakur";target=`pages/${f}/dashboard${f}.html`} window.location.href=target+`?role=${encodeURIComponent(role)}&name=${encodeURIComponent(a.name)}`;}
+  buttons.forEach(b=>b.addEventListener("click",()=>fill(b.dataset.role))); document.getElementById("loginBtn").addEventListener("click",go); pass.addEventListener("keydown",e=>{if(e.key==="Enter")go()}); document.getElementById("togglePassword").addEventListener("click",()=>pass.type=pass.type==="password"?"text":"password"); document.getElementById("forgot").addEventListener("click",()=>alert("Silakan gunakan menu Kelola Sandi dari Admin untuk mengubah sandi.")); fill("admin");
+});
+</script>
 </body>
 </html>

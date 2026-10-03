@@ -1,22 +1,22 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MABIDA Professional — Dashboard Admin</title>
-<link rel="stylesheet" href="../../assets/css/admin.css?v=8"></head>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=20"></head>
 <body>
 <aside class="sidebar">
-<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"><div><b>BUKU INDUK</b><small>ADMINISTRASI TU</small></div></div>
+<div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"></div>
 <div class="profile"><b id="userName">Administrator</b><small id="userRole">Admin / Tata Usaha</small></div>
 <nav>
-<div class="section">UTAMA</div><button class="nav" data-page="dashboard">Dashboard</button>
+<div class="section">UTAMA</div><button class="nav" data-page="dashboard" data-label="Dashboard">Dashboard</button>
 <div class="section">BUKU INDUK SISWA</div>
-<button class="nav" data-page="identitas">Identitas Siswa</button>
-<button class="nav" data-page="kelas10">Hasil Belajar Kelas X</button>
-<button class="nav" data-page="kelas11">Hasil Belajar Kelas XI</button>
-<button class="nav" data-page="kelas12">Hasil Belajar Kelas XII</button>
-<button class="nav" data-page="lampiran">Ijazah & Sertifikat TKA</button>
-<div class="section">ADMINISTRASI</div><button class="nav" data-page="password">Kelola Sandi</button>
+<button class="nav" data-page="identitas" data-label="Identitas Siswa">Identitas Siswa</button>
+<button class="nav" data-page="kelas10" data-label="Hasil Belajar Kelas X">Hasil Belajar Kelas X</button>
+<button class="nav" data-page="kelas11" data-label="Hasil Belajar Kelas XI">Hasil Belajar Kelas XI</button>
+<button class="nav" data-page="kelas12" data-label="Hasil Belajar Kelas XII">Hasil Belajar Kelas XII</button>
+<button class="nav" data-page="lampiran" data-label="Ijazah & Sertifikat TKA">Ijazah & Sertifikat TKA</button>
+<div class="section">ADMINISTRASI</div><button class="nav" data-page="password" data-label="Kelola Sandi">Kelola Sandi</button>
 </nav>
-<button class="logout" onclick="location.href='../../index.html'">Keluar</button>
+<button class="logout" onclick="location.href='../../index.html'" data-label="Keluar">Keluar</button>
 </aside>
 <main class="main"><header class="topbar"><div><small>MABIDA PROFESSIONAL / ADMIN TU</small><h1 id="pageTitle">Dashboard Admin</h1></div>
 <div class="topright"><span>Jam <b id="topClock">00:00:00</b></span><span class="live">● LIVE</span><span id="topDate"></span></div></header>
@@ -33,7 +33,7 @@
 <div class="card"><h3>Status Sistem</h3><div class="notice">Sistem aktif. Data tersimpan di browser ini. Jam real-time tersedia di pojok kanan atas.</div>
 <table class="table"><tr><td>Role</td><td><b>ADMIN / TU</b></td></tr><tr><td>Format cetak</td><td>Folio / F4</td></tr><tr><td>Data siswa</td><td id="dashDataStatus">Belum ada</td></tr></table></div></div>
 </section></main>
-<script src="../../assets/js/admin-common.js?v=8"></script><script>
+<script src="../../assets/js/admin-common.js?v=20"></script><script>
 initAdminShell("Dashboard Admin");
 const ds=getStudents();
 setText("countStudents",ds.length);
