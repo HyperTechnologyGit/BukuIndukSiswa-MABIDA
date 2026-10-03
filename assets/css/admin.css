@@ -1,8 +1,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@view-transition{navigation:auto}
 :root{--g:#0f7655;--g-dark:#075b40;--g-soft:#edf7f1;--gold:#c9a227;--gold-soft:#fbf4d8;--navy:#12243f;--bg:#eef6f1;--line:#d6e2da;--muted:#708078}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);font:11px Inter,Arial,sans-serif;color:#29483d}
 .sidebar{position:fixed;inset:0 auto 0 0;width:220px;background:#fff;border-right:1px solid var(--line);padding:14px 10px;display:flex;flex-direction:column;z-index:10}
+.sidebar{view-transition-name:admin-sidebar}
+::view-transition-old(admin-sidebar),::view-transition-new(admin-sidebar){animation-duration:.22s}
 .brand-mini{display:flex;gap:7px;align-items:center;border-bottom:1px solid var(--line);padding:4px 4px 13px}.brand-mini img{width:62px;height:34px;object-fit:contain;display:block}
 .brand-mini b{display:block;color:var(--navy);font-size:9px;letter-spacing:.6px}.brand-mini small{display:block;font-size:6px;color:var(--g);font-weight:800}
 .profile{padding:13px 5px 8px}.profile b{display:block;font-size:9px;color:#304c42}.profile small{font-size:7px;color:var(--muted)}

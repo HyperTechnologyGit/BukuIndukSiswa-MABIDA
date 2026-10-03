@@ -39,7 +39,7 @@ function initRoleShell(title){
  const shell=document.querySelector('.role-shell');const sidebar=document.querySelector('.role-sidebar');const profileName=document.getElementById('roleName');if(!shell)return;
  if(profileName)profileName.textContent=NAME||'Pengguna';const rt=document.getElementById('roleText');if(rt)rt.textContent=ROLE.toUpperCase()||'DASHBOARD';const pt=document.getElementById('pageTitle');if(pt)pt.textContent=title;
  document.querySelectorAll('.role-nav a,.logout').forEach(a=>{if(!a.querySelector('.nav-icon')){const s=document.createElement('span');s.className='nav-icon';s.innerHTML=iconSvg(a.textContent);a.prepend(s)}if(!a.querySelector('.nav-label')){const l=document.createElement('span');l.className='nav-label';while(a.childNodes.length>1)l.appendChild(a.childNodes[1]);a.appendChild(l)}});
- const current=location.pathname.split('/').pop(),query=location.search||'',links=[...document.querySelectorAll('.role-nav a[data-file]')];
+ const current=location.pathname.split('/').pop(),queryParams=new URLSearchParams(location.search),links=[...document.querySelectorAll('.role-nav a[data-file]')];queryParams.set('_nav','15');const query=`?${queryParams}`;
  links.forEach(a=>{const active=a.dataset.file===current;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');a.href=a.dataset.file+query;a.dataset.tooltip=a.querySelector('.nav-label')?.textContent.trim()||''});
  const desktop=()=>window.innerWidth>600;function applySaved(){if(!desktop())return;shell.classList.remove('sidebar-animating');shell.classList.toggle('sidebar-collapsed',localStorage.getItem('mabida_sidebar_collapsed')==='1')}
  applySaved();

@@ -40,7 +40,7 @@ function initAdminShell(title){
  setText("userRole",role==="admin"?"Admin / Tata Usaha":role.toUpperCase());activeNav();
  const clock=()=>{const n=new Date();setText("topClock",n.toLocaleTimeString("id-ID",{hour12:false}));setText("topDate",n.toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"}))};
  clock();setInterval(clock,1000);
- document.querySelectorAll("[data-page]").forEach(btn=>btn.onclick=()=>{if(pageMap[btn.dataset.page])location.href=pageMap[btn.dataset.page]+location.search});
+ const navParams=new URLSearchParams(location.search);navParams.set('_nav','21');document.querySelectorAll("[data-page]").forEach(btn=>btn.onclick=()=>{if(pageMap[btn.dataset.page])location.href=pageMap[btn.dataset.page]+'?'+navParams});
 }
 
 /* ADMIN SIDEBAR SYNC */
