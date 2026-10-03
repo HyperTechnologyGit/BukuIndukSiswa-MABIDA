@@ -1,1 +1,0 @@
-Root cause verified: V4 role-dashboard.css lost the complete content component styles, which caused raw text/unstyled dashboard content. V5 restores the verified complete dashboard CSS and uses one authoritative sidebar implementation. Toggle animation is only enabled during the logo click; saved state is applied without animation.
