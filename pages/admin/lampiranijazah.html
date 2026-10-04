@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MABIDA Professional — Ijazah & Sertifikat TKA</title>
-<link rel="stylesheet" href="../../assets/css/admin.css?v=21"></head>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=32"></head>
 <body>
 <aside class="sidebar">
 <div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"></div>
@@ -27,7 +27,7 @@
 <div class="dropzone">Area lampiran PDF / JPG / PNG — siap dihubungkan ke storage/backend.</div></div>
 <div class="card section-card"><h3>Dokumen Siswa yang Sudah Ditambahkan</h3><div class="table-wrap"><table class="table"><thead><tr><th>Siswa</th><th>Jenis</th><th>Nomor</th><th>Tanggal</th><th>Keterangan</th></tr></thead><tbody id="docTable"></tbody></table></div></div>
 </section></main>
-<script src="../../assets/js/admin-common.js?v=21"></script><script>
+<script src="../../assets/js/admin-common.js?v=31"></script><script>
 initAdminShell("Ijazah & Sertifikat TKA");
 const docStudent=document.getElementById("docStudent");studentOptions(docStudent,getStudents());
 document.getElementById("saveDoc").onclick=()=>{const data=getStudents(),idx=data.findIndex(s=>s.id===docStudent.value);if(idx<0){alert("Pilih siswa terlebih dahulu.");return}data[idx].documents=data[idx].documents||[];data[idx].documents.push({type:document.getElementById("docType").value,number:document.getElementById("docNumber").value,date:document.getElementById("docDate").value,note:document.getElementById("docNote").value});saveStudents(data);renderDocs();alert("Dokumen berhasil disimpan.")};

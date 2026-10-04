@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MABIDA Professional — Dashboard Admin</title>
-<link rel="stylesheet" href="../../assets/css/admin.css?v=21"></head>
+<link rel="stylesheet" href="../../assets/css/admin.css?v=32"></head>
 <body>
 <aside class="sidebar">
 <div class="brand-mini"><img src="../../assets/img/logo-mabida.png" alt="MABIDA"></div>
@@ -27,19 +27,22 @@
 <div class="stat"><small>HASIL BELAJAR</small><strong id="countResults">0</strong><span>Catatan nilai</span></div>
 <div class="stat"><small>DOKUMEN</small><strong id="countDocs">0</strong><span>Ijazah & TKA</span></div>
 <div class="stat"><small>AKSES</small><strong>Admin</strong><span>Tata Usaha</span></div></div>
-<div class="two"><div class="card"><h3>Data Siswa yang Sudah Ditambahkan</h3><div class="table-wrap">
+<div class="two"><div class="card"><div class="dashboard-data-toolbar"><h3>Data Siswa yang Sudah Ditambahkan</h3><div class="actions"><button class="btn" id="exportDashboardData" type="button">Export CSV</button><button class="btn" id="printDashboardData" type="button">Print / PDF</button></div></div><div class="table-wrap">
 <table class="table"><thead><tr><th>NIS</th><th>NISN</th><th>Nama Lengkap</th><th>Kelas</th><th>Tanggal Lahir</th><th>Status</th></tr></thead><tbody id="dashboardStudents"></tbody></table>
 </div></div>
 <div class="card"><h3>Status Sistem</h3><div class="notice">Sistem aktif. Data tersimpan di browser ini. Jam real-time tersedia di pojok kanan atas.</div>
 <table class="table"><tr><td>Role</td><td><b>ADMIN / TU</b></td></tr><tr><td>Format cetak</td><td>Folio / F4</td></tr><tr><td>Data siswa</td><td id="dashDataStatus">Belum ada</td></tr></table></div></div>
 </section></main>
-<script src="../../assets/js/admin-common.js?v=21"></script><script>
+<script src="../../assets/js/admin-common.js?v=31"></script><script>
 initAdminShell("Dashboard Admin");
 const ds=getStudents();
 setText("countStudents",ds.length);
 setText("countResults",ds.reduce((n,s)=>n+Object.keys(s.results||{}).length,0));
 setText("countDocs",ds.reduce((n,s)=>n+(s.documents?.length||0),0));
 setText("dashDataStatus",ds.length?`${ds.length} siswa tersimpan`:"Belum ada");
+const exportFields=[["NIS",s=>s.nis],["NISN",s=>s.nisn],["Nama Lengkap",s=>s.nama],["Nama Panggilan",s=>s.panggilan],["Tempat Lahir",s=>s.tempatLahir],["Tanggal Lahir",s=>s.tglLahir],["Jenis Kelamin",s=>s.jk],["Kelas",s=>s.kelas],["NIK",s=>s.nik],["No HP",s=>s.noHp],["Alamat",s=>s.alamat],["Nama Ayah",s=>s.ayah?.nama],["Umur Ayah",s=>s.ayah?.umur],["Pekerjaan Ayah",s=>s.ayah?.pekerjaan],["Penghasilan Ayah",s=>s.ayah?.penghasilan],["No HP Ayah",s=>s.ayah?.hp],["Alamat Ayah",s=>s.ayah?.alamat],["Nama Ibu",s=>s.ibu?.nama],["Umur Ibu",s=>s.ibu?.umur],["Pekerjaan Ibu",s=>s.ibu?.pekerjaan],["Penghasilan Ibu",s=>s.ibu?.penghasilan],["No HP Ibu",s=>s.ibu?.hp],["Alamat Ibu",s=>s.ibu?.alamat],["Nama Wali",s=>s.wali?.nama],["Umur Wali",s=>s.wali?.umur],["Pekerjaan Wali",s=>s.wali?.pekerjaan],["Penghasilan Wali",s=>s.wali?.penghasilan],["No HP Wali",s=>s.wali?.hp],["Alamat Wali",s=>s.wali?.alamat],["Foto Data URL",s=>s.photo||""],["Hasil Belajar",s=>JSON.stringify(s.results||{})],["Dokumen",s=>JSON.stringify(s.documents||[])]];
+document.getElementById("exportDashboardData").onclick=()=>{const csv=[exportFields.map(([label])=>label),...ds.map(student=>exportFields.map(([,value])=>value(student)??""))].map(row=>row.map(value=>`"${String(value).replaceAll('"','""')}"`).join(",")).join("\r\n"),blob=new Blob(["\uFEFF",csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download="data-siswa-mabida.csv";link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+document.getElementById("printDashboardData").onclick=()=>window.print();
 renderStudentRows("dashboardStudents",ds.map(s=>`<tr><td>${escapeHtml(s.nis||"-")}</td><td>${escapeHtml(s.nisn||"-")}</td><td><b>${escapeHtml(s.nama||"-")}</b><br><small>${escapeHtml(s.panggilan||"")}</small></td><td>${escapeHtml(s.kelas||"-")}</td><td>${formatDate(s.tglLahir)}</td><td><span class="badge success">Tersimpan</span></td></tr>`));
 </script>
 </body></html>
